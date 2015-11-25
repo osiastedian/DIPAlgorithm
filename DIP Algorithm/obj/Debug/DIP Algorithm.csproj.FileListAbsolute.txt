@@ -1,0 +1,9 @@
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.exe.config
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.exe
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.pdb
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.csprojResolveAssemblyReference.cache
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP_Algorithm.Form1.resources
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP_Algorithm.Properties.Resources.resources
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.csproj.GenerateResource.Cache
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.exe
+c:\users\researcher1pc\documents\visual studio 2013\Projects\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.pdb
