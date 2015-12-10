@@ -39,6 +39,10 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Decrypt = new System.Windows.Forms.TabControl();
             this.EncryptionTab = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -58,30 +62,35 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.savDialogutton = new System.Windows.Forms.Button();
+            this.destinationFileList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.openFileList = new System.Windows.Forms.ComboBox();
+            this.openDialogButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.encryptButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DecryptionTab = new System.Windows.Forms.TabPage();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.AlgoCreationTab = new System.Windows.Forms.TabPage();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
@@ -89,47 +98,41 @@
             this.comboBox7 = new System.Windows.Forms.ComboBox();
             this.button8 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.AlgoCreationTab = new System.Windows.Forms.TabPage();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.Decrypt.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.DecryptionTab.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.DecryptionTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -197,7 +200,7 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // Decrypt
@@ -221,7 +224,7 @@
             this.EncryptionTab.Controls.Add(this.radioButton7);
             this.EncryptionTab.Controls.Add(this.radioButton8);
             this.EncryptionTab.Controls.Add(this.groupBox1);
-            this.EncryptionTab.Controls.Add(this.button2);
+            this.EncryptionTab.Controls.Add(this.encryptButton);
             this.EncryptionTab.Controls.Add(this.button1);
             this.EncryptionTab.Controls.Add(this.groupBox2);
             this.EncryptionTab.Controls.Add(this.progressBar1);
@@ -233,6 +236,46 @@
             this.EncryptionTab.TabIndex = 0;
             this.EncryptionTab.Text = "Encryption";
             this.EncryptionTab.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(207, 6);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.TabIndex = 45;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Location = new System.Drawing.Point(149, 6);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(52, 17);
+            this.radioButton6.TabIndex = 44;
+            this.radioButton6.TabStop = true;
+            this.radioButton6.Text = "Scale";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Location = new System.Drawing.Point(9, 6);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(58, 17);
+            this.radioButton7.TabIndex = 43;
+            this.radioButton7.TabStop = true;
+            this.radioButton7.Text = "Auto-fit";
+            this.radioButton7.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Location = new System.Drawing.Point(73, 6);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(70, 17);
+            this.radioButton8.TabIndex = 42;
+            this.radioButton8.TabStop = true;
+            this.radioButton8.Text = "Real Size";
+            this.radioButton8.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -388,11 +431,11 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.button4);
-            this.groupBox3.Controls.Add(this.comboBox3);
+            this.groupBox3.Controls.Add(this.savDialogutton);
+            this.groupBox3.Controls.Add(this.destinationFileList);
             this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.comboBox2);
-            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.openFileList);
+            this.groupBox3.Controls.Add(this.openDialogButton);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(9, 19);
             this.groupBox3.Name = "groupBox3";
@@ -431,66 +474,69 @@
             this.label10.TabIndex = 33;
             this.label10.Text = "File Type:";
             // 
-            // button4
+            // savDialogutton
             // 
-            this.button4.Location = new System.Drawing.Point(335, 46);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 32;
-            this.button4.Text = "Save To";
-            this.button4.UseVisualStyleBackColor = true;
+            this.savDialogutton.Location = new System.Drawing.Point(335, 46);
+            this.savDialogutton.Name = "savDialogutton";
+            this.savDialogutton.Size = new System.Drawing.Size(75, 23);
+            this.savDialogutton.TabIndex = 32;
+            this.savDialogutton.Text = "Save to";
+            this.savDialogutton.UseVisualStyleBackColor = true;
+            this.savDialogutton.Click += new System.EventHandler(this.savDialogutton_Click);
             // 
-            // comboBox3
+            // destinationFileList
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(106, 48);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(223, 21);
-            this.comboBox3.TabIndex = 31;
+            this.destinationFileList.FormattingEnabled = true;
+            this.destinationFileList.Location = new System.Drawing.Point(106, 48);
+            this.destinationFileList.Name = "destinationFileList";
+            this.destinationFileList.Size = new System.Drawing.Size(223, 21);
+            this.destinationFileList.TabIndex = 31;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 53);
+            this.label3.Location = new System.Drawing.Point(34, 51);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 30;
-            this.label3.Text = "Desitination File:";
+            this.label3.Text = "Desitination:";
             // 
-            // comboBox2
+            // openFileList
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(106, 17);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(223, 21);
-            this.comboBox2.TabIndex = 29;
+            this.openFileList.FormattingEnabled = true;
+            this.openFileList.Location = new System.Drawing.Point(106, 17);
+            this.openFileList.Name = "openFileList";
+            this.openFileList.Size = new System.Drawing.Size(223, 21);
+            this.openFileList.TabIndex = 29;
             // 
-            // button3
+            // openDialogButton
             // 
-            this.button3.Location = new System.Drawing.Point(335, 17);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 28;
-            this.button3.Text = "Open";
-            this.button3.UseVisualStyleBackColor = true;
+            this.openDialogButton.Location = new System.Drawing.Point(335, 17);
+            this.openDialogButton.Name = "openDialogButton";
+            this.openDialogButton.Size = new System.Drawing.Size(75, 23);
+            this.openDialogButton.TabIndex = 28;
+            this.openDialogButton.Text = "Open";
+            this.openDialogButton.UseVisualStyleBackColor = true;
+            this.openDialogButton.Click += new System.EventHandler(this.openDialogButton_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 22);
+            this.label2.Location = new System.Drawing.Point(52, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 27;
-            this.label2.Text = "Source File:";
+            this.label2.Text = "Source:";
             // 
-            // button2
+            // encryptButton
             // 
-            this.button2.Location = new System.Drawing.Point(907, 682);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 26);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "ENCRYPT";
-            this.button2.UseVisualStyleBackColor = true;
+            this.encryptButton.Location = new System.Drawing.Point(907, 682);
+            this.encryptButton.Name = "encryptButton";
+            this.encryptButton.Size = new System.Drawing.Size(110, 26);
+            this.encryptButton.TabIndex = 5;
+            this.encryptButton.Text = "ENCRYPT";
+            this.encryptButton.UseVisualStyleBackColor = true;
+            this.encryptButton.Click += new System.EventHandler(this.encryptButton_Click);
             // 
             // button1
             // 
@@ -523,6 +569,20 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Encryption Options";
             // 
+            // checkedListBox2
+            // 
+            this.checkedListBox2.FormattingEnabled = true;
+            this.checkedListBox2.Items.AddRange(new object[] {
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4",
+            "Option 5"});
+            this.checkedListBox2.Location = new System.Drawing.Point(12, 19);
+            this.checkedListBox2.Name = "checkedListBox2";
+            this.checkedListBox2.Size = new System.Drawing.Size(398, 199);
+            this.checkedListBox2.TabIndex = 1;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -554,6 +614,15 @@
             this.progressBar1.Size = new System.Drawing.Size(568, 23);
             this.progressBar1.TabIndex = 1;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 29);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(568, 647);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // DecryptionTab
             // 
             this.DecryptionTab.Controls.Add(this.numericUpDown1);
@@ -575,85 +644,96 @@
             this.DecryptionTab.Text = "Decryption";
             this.DecryptionTab.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // numericUpDown1
             // 
-            this.button5.Location = new System.Drawing.Point(916, 679);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(110, 26);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "DECRYPT";
-            this.button5.UseVisualStyleBackColor = true;
+            this.numericUpDown1.Location = new System.Drawing.Point(206, 6);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 41;
             // 
-            // button6
+            // radioButton5
             // 
-            this.button6.Location = new System.Drawing.Point(800, 679);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(110, 26);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "CLEAR";
-            this.button6.UseVisualStyleBackColor = true;
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Location = new System.Drawing.Point(148, 6);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(52, 17);
+            this.radioButton5.TabIndex = 40;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "Scale";
+            this.radioButton5.UseVisualStyleBackColor = true;
             // 
-            // groupBox7
+            // radioButton4
             // 
-            this.groupBox7.Controls.Add(this.groupBox10);
-            this.groupBox7.Controls.Add(this.checkBox1);
-            this.groupBox7.Controls.Add(this.button9);
-            this.groupBox7.Controls.Add(this.label6);
-            this.groupBox7.Controls.Add(this.comboBox5);
-            this.groupBox7.Location = new System.Drawing.Point(585, 292);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(426, 381);
-            this.groupBox7.TabIndex = 4;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Decryption Settings";
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(8, 6);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(58, 17);
+            this.radioButton4.TabIndex = 39;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Auto-fit";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // radioButton3
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 67);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(100, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Decryption Method:";
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(72, 6);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(70, 17);
+            this.radioButton3.TabIndex = 38;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Real Size";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // comboBox5
+            // groupBox9
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "Simple",
-            "Double Encryption",
-            "Color Biased ( R G B )",
-            "Hash Key Encryption"});
-            this.comboBox5.Location = new System.Drawing.Point(111, 64);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(299, 21);
-            this.comboBox5.TabIndex = 0;
-            this.comboBox5.Text = "Decryption Algorithms";
+            this.groupBox9.Controls.Add(this.textBox5);
+            this.groupBox9.Controls.Add(this.label14);
+            this.groupBox9.Controls.Add(this.textBox6);
+            this.groupBox9.Controls.Add(this.label18);
+            this.groupBox9.Location = new System.Drawing.Point(585, 149);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(426, 137);
+            this.groupBox9.TabIndex = 37;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Author/Owner Information";
             // 
-            // progressBar2
+            // textBox5
             // 
-            this.progressBar2.Location = new System.Drawing.Point(6, 682);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(568, 23);
-            this.progressBar2.TabIndex = 3;
+            this.textBox5.Location = new System.Drawing.Point(105, 50);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(224, 20);
+            this.textBox5.TabIndex = 18;
+            this.textBox5.Text = "Anonymous";
             // 
-            // pictureBox2
+            // label14
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.DarkGray;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 28);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(568, 648);
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(18, 53);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(76, 13);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "Email Address:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // AlgoCreationTab
+            // textBox6
             // 
-            this.AlgoCreationTab.Location = new System.Drawing.Point(4, 22);
-            this.AlgoCreationTab.Name = "AlgoCreationTab";
-            this.AlgoCreationTab.Size = new System.Drawing.Size(1029, 711);
-            this.AlgoCreationTab.TabIndex = 2;
-            this.AlgoCreationTab.Text = "Algorithm Creation";
-            this.AlgoCreationTab.UseVisualStyleBackColor = true;
+            this.textBox6.Location = new System.Drawing.Point(105, 24);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(224, 20);
+            this.textBox6.TabIndex = 16;
+            this.textBox6.Text = "Anonymous";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(18, 27);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(77, 13);
+            this.label18.TabIndex = 15;
+            this.label18.Text = "Author/Owner:";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // groupBox8
             // 
@@ -673,6 +753,31 @@
             this.groupBox8.TabIndex = 16;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "File Settings";
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.Location = new System.Drawing.Point(106, 100);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(223, 21);
+            this.comboBox9.TabIndex = 36;
+            // 
+            // comboBox8
+            // 
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.Location = new System.Drawing.Point(106, 75);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(223, 21);
+            this.comboBox8.TabIndex = 35;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(20, 104);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(75, 13);
+            this.label13.TabIndex = 34;
+            this.label13.Text = "File Extension:";
             // 
             // label15
             // 
@@ -735,100 +840,37 @@
             this.label17.TabIndex = 27;
             this.label17.Text = "Source File:";
             // 
-            // label13
+            // button5
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(20, 104);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(75, 13);
-            this.label13.TabIndex = 34;
-            this.label13.Text = "File Extension:";
+            this.button5.Location = new System.Drawing.Point(916, 679);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(110, 26);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "DECRYPT";
+            this.button5.UseVisualStyleBackColor = true;
             // 
-            // comboBox8
+            // button6
             // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(106, 75);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(223, 21);
-            this.comboBox8.TabIndex = 35;
+            this.button6.Location = new System.Drawing.Point(800, 679);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(110, 26);
+            this.button6.TabIndex = 6;
+            this.button6.Text = "CLEAR";
+            this.button6.UseVisualStyleBackColor = true;
             // 
-            // comboBox9
+            // groupBox7
             // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Location = new System.Drawing.Point(106, 100);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(223, 21);
-            this.comboBox9.TabIndex = 36;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.textBox5);
-            this.groupBox9.Controls.Add(this.label14);
-            this.groupBox9.Controls.Add(this.textBox6);
-            this.groupBox9.Controls.Add(this.label18);
-            this.groupBox9.Location = new System.Drawing.Point(585, 149);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(426, 137);
-            this.groupBox9.TabIndex = 37;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Author/Owner Information";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(105, 50);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(224, 20);
-            this.textBox5.TabIndex = 18;
-            this.textBox5.Text = "Anonymous";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(18, 53);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(76, 13);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "Email Address:";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(105, 24);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.Size = new System.Drawing.Size(224, 20);
-            this.textBox6.TabIndex = 16;
-            this.textBox6.Text = "Anonymous";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(18, 27);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(77, 13);
-            this.label18.TabIndex = 15;
-            this.label18.Text = "Author/Owner:";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(9, 19);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(164, 23);
-            this.button9.TabIndex = 2;
-            this.button9.Text = "Auto-Detect Algorithm";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 48);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Force Unlock";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.groupBox7.Controls.Add(this.groupBox10);
+            this.groupBox7.Controls.Add(this.checkBox1);
+            this.groupBox7.Controls.Add(this.button9);
+            this.groupBox7.Controls.Add(this.label6);
+            this.groupBox7.Controls.Add(this.comboBox5);
+            this.groupBox7.Location = new System.Drawing.Point(585, 292);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(426, 381);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Decryption Settings";
             // 
             // groupBox10
             // 
@@ -839,109 +881,6 @@
             this.groupBox10.TabIndex = 4;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Decryption Options";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(72, 6);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(70, 17);
-            this.radioButton3.TabIndex = 38;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Real Size";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(8, 6);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(58, 17);
-            this.radioButton4.TabIndex = 39;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Auto-fit";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(148, 6);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(52, 17);
-            this.radioButton5.TabIndex = 40;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Scale";
-            this.radioButton5.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(206, 6);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 41;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.DarkGray;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 29);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(568, 647);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(207, 6);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 45;
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(149, 6);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(52, 17);
-            this.radioButton6.TabIndex = 44;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "Scale";
-            this.radioButton6.UseVisualStyleBackColor = true;
-            // 
-            // radioButton7
-            // 
-            this.radioButton7.AutoSize = true;
-            this.radioButton7.Location = new System.Drawing.Point(9, 6);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(58, 17);
-            this.radioButton7.TabIndex = 43;
-            this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "Auto-fit";
-            this.radioButton7.UseVisualStyleBackColor = true;
-            // 
-            // radioButton8
-            // 
-            this.radioButton8.AutoSize = true;
-            this.radioButton8.Location = new System.Drawing.Point(73, 6);
-            this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(70, 17);
-            this.radioButton8.TabIndex = 42;
-            this.radioButton8.TabStop = true;
-            this.radioButton8.Text = "Real Size";
-            this.radioButton8.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox2
-            // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
-            "Option 1",
-            "Option 2",
-            "Option 3",
-            "Option 4",
-            "Option 5"});
-            this.checkedListBox2.Location = new System.Drawing.Point(12, 19);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(398, 199);
-            this.checkedListBox2.TabIndex = 1;
             // 
             // checkedListBox1
             // 
@@ -956,6 +895,77 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(368, 229);
             this.checkedListBox1.TabIndex = 2;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(9, 48);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(90, 17);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "Force Unlock";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(9, 19);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(164, 23);
+            this.button9.TabIndex = 2;
+            this.button9.Text = "Auto-Detect Algorithm";
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Decryption Method:";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "Simple",
+            "Double Encryption",
+            "Color Biased ( R G B )",
+            "Hash Key Encryption"});
+            this.comboBox5.Location = new System.Drawing.Point(111, 64);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(299, 21);
+            this.comboBox5.TabIndex = 0;
+            this.comboBox5.Text = "Decryption Algorithms";
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(6, 682);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(568, 23);
+            this.progressBar2.TabIndex = 3;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.DarkGray;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 28);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(568, 648);
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
+            // 
+            // AlgoCreationTab
+            // 
+            this.AlgoCreationTab.Location = new System.Drawing.Point(4, 22);
+            this.AlgoCreationTab.Name = "AlgoCreationTab";
+            this.AlgoCreationTab.Size = new System.Drawing.Size(1029, 711);
+            this.AlgoCreationTab.TabIndex = 2;
+            this.AlgoCreationTab.Text = "Algorithm Creation (Extra)";
+            this.AlgoCreationTab.UseVisualStyleBackColor = true;
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -976,6 +986,7 @@
             this.Decrypt.ResumeLayout(false);
             this.EncryptionTab.ResumeLayout(false);
             this.EncryptionTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -986,19 +997,18 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.DecryptionTab.ResumeLayout(false);
             this.DecryptionTab.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1022,7 +1032,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -1030,11 +1040,11 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button savDialogutton;
+        private System.Windows.Forms.ComboBox destinationFileList;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox openFileList;
+        private System.Windows.Forms.Button openDialogButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -1089,6 +1099,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 
