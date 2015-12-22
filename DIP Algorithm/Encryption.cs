@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 
 namespace DIP_Algorithm
 {
-    public interface Encryption
+    public abstract class Encryption
     {
-        void applyEncryption();
+        public EncryptionMeta Output { get; set; }
+        public abstract void applyEncryption();
+        public abstract double getPercentage();
+        
+        
+
         
     }
 }

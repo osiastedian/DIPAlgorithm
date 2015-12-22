@@ -37,6 +37,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.Decrypt = new System.Windows.Forms.TabControl();
             this.EncryptionTab = new System.Windows.Forms.TabPage();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -110,10 +113,6 @@
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.AlgoCreationTab = new System.Windows.Forms.TabPage();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.Decrypt.SuspendLayout();
@@ -140,7 +139,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 767);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 719);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1049, 22);
             this.statusStrip1.TabIndex = 0;
@@ -203,6 +202,10 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Decrypt
             // 
             this.Decrypt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -211,14 +214,15 @@
             this.Decrypt.Controls.Add(this.EncryptionTab);
             this.Decrypt.Controls.Add(this.DecryptionTab);
             this.Decrypt.Controls.Add(this.AlgoCreationTab);
-            this.Decrypt.Location = new System.Drawing.Point(12, 27);
+            this.Decrypt.Location = new System.Drawing.Point(6, 26);
             this.Decrypt.Name = "Decrypt";
             this.Decrypt.SelectedIndex = 0;
-            this.Decrypt.Size = new System.Drawing.Size(1037, 737);
-            this.Decrypt.TabIndex = 5;
+            this.Decrypt.Size = new System.Drawing.Size(1037, 689);
+            this.Decrypt.TabIndex = 6;
             // 
             // EncryptionTab
             // 
+            this.EncryptionTab.AutoScroll = true;
             this.EncryptionTab.Controls.Add(this.numericUpDown2);
             this.EncryptionTab.Controls.Add(this.radioButton6);
             this.EncryptionTab.Controls.Add(this.radioButton7);
@@ -232,7 +236,7 @@
             this.EncryptionTab.Location = new System.Drawing.Point(4, 22);
             this.EncryptionTab.Name = "EncryptionTab";
             this.EncryptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.EncryptionTab.Size = new System.Drawing.Size(1029, 711);
+            this.EncryptionTab.Size = new System.Drawing.Size(1029, 663);
             this.EncryptionTab.TabIndex = 0;
             this.EncryptionTab.Text = "Encryption";
             this.EncryptionTab.UseVisualStyleBackColor = true;
@@ -620,6 +624,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(6, 29);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(568, 647);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -639,7 +644,7 @@
             this.DecryptionTab.Location = new System.Drawing.Point(4, 22);
             this.DecryptionTab.Name = "DecryptionTab";
             this.DecryptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DecryptionTab.Size = new System.Drawing.Size(1029, 711);
+            this.DecryptionTab.Size = new System.Drawing.Size(1029, 663);
             this.DecryptionTab.TabIndex = 1;
             this.DecryptionTab.Text = "Decryption";
             this.DecryptionTab.UseVisualStyleBackColor = true;
@@ -958,20 +963,16 @@
             // 
             this.AlgoCreationTab.Location = new System.Drawing.Point(4, 22);
             this.AlgoCreationTab.Name = "AlgoCreationTab";
-            this.AlgoCreationTab.Size = new System.Drawing.Size(1029, 711);
+            this.AlgoCreationTab.Size = new System.Drawing.Size(1029, 663);
             this.AlgoCreationTab.TabIndex = 2;
             this.AlgoCreationTab.Text = "Algorithm Creation (Extra)";
             this.AlgoCreationTab.UseVisualStyleBackColor = true;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1049, 789);
+            this.ClientSize = new System.Drawing.Size(1049, 741);
             this.Controls.Add(this.Decrypt);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1024,18 +1025,31 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TabControl Decrypt;
         private System.Windows.Forms.TabPage EncryptionTab;
-        private System.Windows.Forms.TabPage DecryptionTab;
-        private System.Windows.Forms.TabPage AlgoCreationTab;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton7;
+        private System.Windows.Forms.RadioButton radioButton8;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button encryptButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -1046,30 +1060,29 @@
         private System.Windows.Forms.ComboBox openFileList;
         private System.Windows.Forms.Button openDialogButton;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button encryptButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.ProgressBar progressBar2;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TabPage DecryptionTab;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.ComboBox comboBox9;
+        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ComboBox comboBox6;
@@ -1077,31 +1090,18 @@
         private System.Windows.Forms.ComboBox comboBox7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBox8;
-        private System.Windows.Forms.ComboBox comboBox9;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.RadioButton radioButton8;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TabPage AlgoCreationTab;
     }
 }
 
