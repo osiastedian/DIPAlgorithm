@@ -24,10 +24,7 @@ namespace DIP_Algorithm
         {
             Percentage = 0;
             EncryptionMeta meta = new EncryptionMeta();
-            byte[] key = new byte[BufferLength];
-            // KEY GENERATION
-
-
+            byte[] key = generateKey();
             int size = (int)Math.Sqrt(stream.Length/4);
             meta.Output = new Bitmap(size, size);
             int x = 0;
@@ -39,10 +36,10 @@ namespace DIP_Algorithm
                 while (x < meta.Output.Width) {
                     red = green = blue = 0;
                     stream.Read(buffer, 0, buffer.Length);
-                    alpha   = buffer[0];
-                    red     = buffer[1];
-                    green   = buffer[2];
-                    blue    = buffer[3];
+                    alpha   = (buffer[0] + key[0]) %byte.MaxValue;
+                    red     = (buffer[1] + key[1]) % byte.MaxValue;
+                    green   = (buffer[2] + key[2]) % byte.MaxValue;
+                    blue    = (buffer[3] + key[3]) % byte.MaxValue;
                     meta.Output.SetPixel(x, y, Color.FromArgb(alpha,red, green, blue));
                     // FOR TESTING PURPOSES {
                     s += (char)alpha;
@@ -61,11 +58,32 @@ namespace DIP_Algorithm
             Output =  meta;
         }
         
+        
 
 
         public override double getPercentage()
         {
             return this.Percentage;
+        }
+
+        public override void applyDecryption()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override byte[] generateKey()
+        {
+            byte[] result = new byte[BufferLength];
+            Random rn = new Random();
+            for (int i = 0; i < BufferLength; i++)
+            {
+                int rand = -1;
+                while (!char.IsLetterOrDigit((char)rand)) {
+                    rand = rn.Next(0, byte.MaxValue);
+                };
+                result[i] = (byte) rand ;
+            }
+            return result;
         }
     }
 }
