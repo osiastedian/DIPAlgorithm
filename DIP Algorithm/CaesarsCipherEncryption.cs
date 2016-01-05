@@ -12,6 +12,7 @@ namespace DIP_Algorithm
     class CaesarsCipherEncryption : Encryption
     {
         public double Percentage { get; set; }
+        public static int BufferLength = 4;
         Stream stream;
         Bitmap map;
         public long i = 0;
@@ -23,25 +24,35 @@ namespace DIP_Algorithm
         {
             Percentage = 0;
             EncryptionMeta meta = new EncryptionMeta();
-            int size = (int)Math.Sqrt(stream.Length/3);
+            byte[] key = new byte[BufferLength];
+            // KEY GENERATION
+
+
+            int size = (int)Math.Sqrt(stream.Length/4);
             meta.Output = new Bitmap(size, size);
             int x = 0;
             int y = 0;
-            int red,green,blue = 0;
-            byte[] buffer = new byte[3];
-
+            int alpha,red,green,blue = 0;
+            byte[] buffer = new byte[BufferLength];
+            String s = "";
             while (y < meta.Output.Height) {
                 while (x < meta.Output.Width) {
                     red = green = blue = 0;
                     stream.Read(buffer, 0, buffer.Length);
-                    stream.Position += buffer.Length;
-                    red = buffer[0];
-                    green = buffer[1];
-                    blue = buffer[2];
-                    meta.Output.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                    alpha   = buffer[0];
+                    red     = buffer[1];
+                    green   = buffer[2];
+                    blue    = buffer[3];
+                    meta.Output.SetPixel(x, y, Color.FromArgb(alpha,red, green, blue));
+                    // FOR TESTING PURPOSES {
+                    s += (char)alpha;
+                    s += (char)red;
+                    s += (char)green;
+                    s += (char)blue;
+                    // }
                     /// UPDATES
-                    Percentage = ((double)(meta.Output.Width*y)+x)*3 / stream.Length;
-                    x += 3;
+                    Percentage = ((double)(meta.Output.Width*y)+x)* buffer.Length / stream.Length;
+                    x++;
                 }
                 x = 0;
                 y++;
@@ -49,7 +60,9 @@ namespace DIP_Algorithm
             }
             Output =  meta;
         }
-        // TODO: Edit Encryption Method.
+        
+
+
         public override double getPercentage()
         {
             return this.Percentage;

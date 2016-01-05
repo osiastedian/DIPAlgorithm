@@ -16,3 +16,12 @@ C:\Users\osias\Documents\DIPAlgorithm\DIP Algorithm\obj\Debug\DIP_Algorithm.Prop
 C:\Users\osias\Documents\DIPAlgorithm\DIP Algorithm\obj\Debug\DIP Algorithm.csproj.GenerateResource.Cache
 C:\Users\osias\Documents\DIPAlgorithm\DIP Algorithm\obj\Debug\DIP Algorithm.exe
 C:\Users\osias\Documents\DIPAlgorithm\DIP Algorithm\obj\Debug\DIP Algorithm.pdb
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.exe.config
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.exe
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Debug\DIP Algorithm.pdb
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.csprojResolveAssemblyReference.cache
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP_Algorithm.Form1.resources
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP_Algorithm.Properties.Resources.resources
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.csproj.GenerateResource.Cache
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.exe
+C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Debug\DIP Algorithm.pdb
