@@ -101,7 +101,40 @@ namespace DIP_Algorithm
             encrypt();
         }
 
-        
+        private void openButtonDecryption_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+
+            try
+            {
+                Stream file = openFileDialog1.OpenFile();
+                if (file != null)
+                {
+                    file.Close();
+                    srcListDecryption.Items.Add(openFileDialog1.FileName);
+                    srcListDecryption.Text = openFileDialog1.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+
+            }
+        }
+
+        private void DecryptButton_Click(object sender, EventArgs e)
+        {
+            Stream stream = openFileDialog1.OpenFile();
+            //Bitmap bitmap = new Bitmap(pictureBox1.Image);
+            this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
+            EncryptionMeta output = new EncryptionMeta();
+            output.Key = Microsoft.VisualBasic.Interaction.InputBox("Insert Key:","KEY");
+            output.Output = new Bitmap(stream);
+            this.currentEncryption.Output = output;
+            this.currentEncryption.applyDecryption();
+
+        }
     }
 
     

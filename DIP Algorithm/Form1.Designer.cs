@@ -98,21 +98,18 @@
             this.button7 = new System.Windows.Forms.Button();
             this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.button8 = new System.Windows.Forms.Button();
+            this.srcListDecryption = new System.Windows.Forms.ComboBox();
+            this.openButtonDecryption = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button9 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.AlgoCreationTab = new System.Windows.Forms.TabPage();
+            this.DecryptButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.Decrypt.SuspendLayout();
@@ -130,7 +127,6 @@
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -749,8 +745,8 @@
             this.groupBox8.Controls.Add(this.button7);
             this.groupBox8.Controls.Add(this.comboBox6);
             this.groupBox8.Controls.Add(this.label16);
-            this.groupBox8.Controls.Add(this.comboBox7);
-            this.groupBox8.Controls.Add(this.button8);
+            this.groupBox8.Controls.Add(this.srcListDecryption);
+            this.groupBox8.Controls.Add(this.openButtonDecryption);
             this.groupBox8.Controls.Add(this.label17);
             this.groupBox8.Location = new System.Drawing.Point(585, 6);
             this.groupBox8.Name = "groupBox8";
@@ -819,22 +815,23 @@
             this.label16.TabIndex = 30;
             this.label16.Text = "Desitination:";
             // 
-            // comboBox7
+            // srcListDecryption
             // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(106, 17);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(223, 21);
-            this.comboBox7.TabIndex = 29;
+            this.srcListDecryption.FormattingEnabled = true;
+            this.srcListDecryption.Location = new System.Drawing.Point(106, 17);
+            this.srcListDecryption.Name = "srcListDecryption";
+            this.srcListDecryption.Size = new System.Drawing.Size(223, 21);
+            this.srcListDecryption.TabIndex = 29;
             // 
-            // button8
+            // openButtonDecryption
             // 
-            this.button8.Location = new System.Drawing.Point(335, 17);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(75, 23);
-            this.button8.TabIndex = 28;
-            this.button8.Text = "Open";
-            this.button8.UseVisualStyleBackColor = true;
+            this.openButtonDecryption.Location = new System.Drawing.Point(335, 17);
+            this.openButtonDecryption.Name = "openButtonDecryption";
+            this.openButtonDecryption.Size = new System.Drawing.Size(75, 23);
+            this.openButtonDecryption.TabIndex = 28;
+            this.openButtonDecryption.Text = "Open";
+            this.openButtonDecryption.UseVisualStyleBackColor = true;
+            this.openButtonDecryption.Click += new System.EventHandler(this.openButtonDecryption_Click);
             // 
             // label17
             // 
@@ -865,9 +862,7 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.groupBox10);
-            this.groupBox7.Controls.Add(this.checkBox1);
-            this.groupBox7.Controls.Add(this.button9);
+            this.groupBox7.Controls.Add(this.DecryptButton);
             this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.comboBox5);
             this.groupBox7.Location = new System.Drawing.Point(585, 292);
@@ -877,53 +872,10 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Decryption Settings";
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.checkedListBox1);
-            this.groupBox10.Location = new System.Drawing.Point(9, 101);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(401, 274);
-            this.groupBox10.TabIndex = 4;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Decryption Options";
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "Option 1",
-            "Option 2",
-            "Option 3",
-            "Option 4",
-            "Option 5"});
-            this.checkedListBox1.Location = new System.Drawing.Point(14, 30);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(368, 229);
-            this.checkedListBox1.TabIndex = 2;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 48);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Force Unlock";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(9, 19);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(164, 23);
-            this.button9.TabIndex = 2;
-            this.button9.Text = "Auto-Detect Algorithm";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 67);
+            this.label6.Location = new System.Drawing.Point(3, 25);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 13);
             this.label6.TabIndex = 1;
@@ -937,7 +889,7 @@
             "Double Encryption",
             "Color Biased ( R G B )",
             "Hash Key Encryption"});
-            this.comboBox5.Location = new System.Drawing.Point(111, 64);
+            this.comboBox5.Location = new System.Drawing.Point(108, 22);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(299, 21);
             this.comboBox5.TabIndex = 0;
@@ -967,6 +919,16 @@
             this.AlgoCreationTab.TabIndex = 2;
             this.AlgoCreationTab.Text = "Algorithm Creation (Extra)";
             this.AlgoCreationTab.UseVisualStyleBackColor = true;
+            // 
+            // DecryptButton
+            // 
+            this.DecryptButton.Location = new System.Drawing.Point(6, 54);
+            this.DecryptButton.Name = "DecryptButton";
+            this.DecryptButton.Size = new System.Drawing.Size(175, 23);
+            this.DecryptButton.TabIndex = 4;
+            this.DecryptButton.Text = "Begin Decryption";
+            this.DecryptButton.UseVisualStyleBackColor = true;
+            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
             // 
             // Form1
             // 
@@ -1008,7 +970,6 @@
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1087,21 +1048,18 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox comboBox7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.ComboBox srcListDecryption;
+        private System.Windows.Forms.Button openButtonDecryption;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TabPage AlgoCreationTab;
+        private System.Windows.Forms.Button DecryptButton;
     }
 }
 
