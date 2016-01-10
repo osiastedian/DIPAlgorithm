@@ -1,9 +1,0 @@
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Release\DIP Algorithm.exe.config
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Release\DIP Algorithm.exe
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\bin\Release\DIP Algorithm.pdb
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP Algorithm.csprojResolveAssemblyReference.cache
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP_Algorithm.Form1.resources
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP_Algorithm.Properties.Resources.resources
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP Algorithm.csproj.GenerateResource.Cache
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP Algorithm.exe
-C:\Users\osias\Documents\DIP Algorithm\DIP Algorithm\obj\Release\DIP Algorithm.pdb
