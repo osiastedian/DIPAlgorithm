@@ -74,8 +74,6 @@
             this.encryptButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -104,12 +102,12 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.DecryptButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.AlgoCreationTab = new System.Windows.Forms.TabPage();
-            this.DecryptButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.Decrypt.SuspendLayout();
@@ -120,7 +118,6 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.DecryptionTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -135,7 +132,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 719);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1049, 22);
             this.statusStrip1.TabIndex = 0;
@@ -213,7 +210,7 @@
             this.Decrypt.Location = new System.Drawing.Point(6, 26);
             this.Decrypt.Name = "Decrypt";
             this.Decrypt.SelectedIndex = 0;
-            this.Decrypt.Size = new System.Drawing.Size(1037, 689);
+            this.Decrypt.Size = new System.Drawing.Size(1037, 541);
             this.Decrypt.TabIndex = 6;
             // 
             // EncryptionTab
@@ -224,15 +221,13 @@
             this.EncryptionTab.Controls.Add(this.radioButton7);
             this.EncryptionTab.Controls.Add(this.radioButton8);
             this.EncryptionTab.Controls.Add(this.groupBox1);
-            this.EncryptionTab.Controls.Add(this.encryptButton);
-            this.EncryptionTab.Controls.Add(this.button1);
             this.EncryptionTab.Controls.Add(this.groupBox2);
             this.EncryptionTab.Controls.Add(this.progressBar1);
             this.EncryptionTab.Controls.Add(this.pictureBox1);
             this.EncryptionTab.Location = new System.Drawing.Point(4, 22);
             this.EncryptionTab.Name = "EncryptionTab";
             this.EncryptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.EncryptionTab.Size = new System.Drawing.Size(1029, 663);
+            this.EncryptionTab.Size = new System.Drawing.Size(1029, 515);
             this.EncryptionTab.TabIndex = 0;
             this.EncryptionTab.Text = "Encryption";
             this.EncryptionTab.UseVisualStyleBackColor = true;
@@ -284,7 +279,7 @@
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Location = new System.Drawing.Point(580, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(441, 375);
+            this.groupBox1.Size = new System.Drawing.Size(417, 350);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General Settings";
@@ -297,7 +292,7 @@
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Location = new System.Drawing.Point(9, 133);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(426, 103);
+            this.groupBox5.Size = new System.Drawing.Size(402, 76);
             this.groupBox5.TabIndex = 17;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Author Information";
@@ -348,9 +343,9 @@
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.comboBox4);
-            this.groupBox4.Location = new System.Drawing.Point(9, 242);
+            this.groupBox4.Location = new System.Drawing.Point(9, 215);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(426, 127);
+            this.groupBox4.Size = new System.Drawing.Size(402, 127);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Image Settings";
@@ -439,7 +434,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Location = new System.Drawing.Point(9, 19);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(426, 108);
+            this.groupBox3.Size = new System.Drawing.Size(402, 108);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "File Settings";
@@ -449,7 +444,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.SlateBlue;
-            this.label12.Location = new System.Drawing.Point(158, 75);
+            this.label12.Location = new System.Drawing.Point(138, 75);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(38, 16);
             this.label12.TabIndex = 35;
@@ -459,7 +454,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(103, 75);
+            this.label11.Location = new System.Drawing.Point(83, 75);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 16);
             this.label11.TabIndex = 34;
@@ -468,7 +463,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(44, 75);
+            this.label10.Location = new System.Drawing.Point(24, 75);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 33;
@@ -476,7 +471,7 @@
             // 
             // savDialogutton
             // 
-            this.savDialogutton.Location = new System.Drawing.Point(335, 46);
+            this.savDialogutton.Location = new System.Drawing.Point(315, 46);
             this.savDialogutton.Name = "savDialogutton";
             this.savDialogutton.Size = new System.Drawing.Size(75, 23);
             this.savDialogutton.TabIndex = 32;
@@ -487,7 +482,7 @@
             // destinationFileList
             // 
             this.destinationFileList.FormattingEnabled = true;
-            this.destinationFileList.Location = new System.Drawing.Point(106, 48);
+            this.destinationFileList.Location = new System.Drawing.Point(86, 48);
             this.destinationFileList.Name = "destinationFileList";
             this.destinationFileList.Size = new System.Drawing.Size(223, 21);
             this.destinationFileList.TabIndex = 31;
@@ -495,7 +490,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 51);
+            this.label3.Location = new System.Drawing.Point(14, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 30;
@@ -504,14 +499,14 @@
             // openFileList
             // 
             this.openFileList.FormattingEnabled = true;
-            this.openFileList.Location = new System.Drawing.Point(106, 17);
+            this.openFileList.Location = new System.Drawing.Point(86, 17);
             this.openFileList.Name = "openFileList";
             this.openFileList.Size = new System.Drawing.Size(223, 21);
             this.openFileList.TabIndex = 29;
             // 
             // openDialogButton
             // 
-            this.openDialogButton.Location = new System.Drawing.Point(335, 17);
+            this.openDialogButton.Location = new System.Drawing.Point(315, 17);
             this.openDialogButton.Name = "openDialogButton";
             this.openDialogButton.Size = new System.Drawing.Size(75, 23);
             this.openDialogButton.TabIndex = 28;
@@ -522,7 +517,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 22);
+            this.label2.Location = new System.Drawing.Point(32, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 27;
@@ -530,7 +525,7 @@
             // 
             // encryptButton
             // 
-            this.encryptButton.Location = new System.Drawing.Point(907, 682);
+            this.encryptButton.Location = new System.Drawing.Point(300, 65);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(110, 26);
             this.encryptButton.TabIndex = 5;
@@ -540,7 +535,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(791, 682);
+            this.button1.Location = new System.Drawing.Point(184, 65);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 26);
             this.button1.TabIndex = 4;
@@ -549,39 +544,16 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.groupBox6);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Location = new System.Drawing.Point(580, 387);
+            this.groupBox2.Controls.Add(this.encryptButton);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Location = new System.Drawing.Point(580, 362);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(441, 289);
+            this.groupBox2.Size = new System.Drawing.Size(417, 111);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Encryption Settings";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.checkedListBox2);
-            this.groupBox6.Location = new System.Drawing.Point(9, 46);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(426, 237);
-            this.groupBox6.TabIndex = 2;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Encryption Options";
-            // 
-            // checkedListBox2
-            // 
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
-            "Option 1",
-            "Option 2",
-            "Option 3",
-            "Option 4",
-            "Option 5"});
-            this.checkedListBox2.Location = new System.Drawing.Point(12, 19);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(398, 199);
-            this.checkedListBox2.TabIndex = 1;
             // 
             // label1
             // 
@@ -603,13 +575,13 @@
             "Hash Key Encryption"});
             this.comboBox1.Location = new System.Drawing.Point(111, 19);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(324, 21);
+            this.comboBox1.Size = new System.Drawing.Size(299, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.Text = "Encryption Algorithms";
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(6, 682);
+            this.progressBar1.Location = new System.Drawing.Point(6, 479);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(568, 23);
             this.progressBar1.TabIndex = 1;
@@ -619,7 +591,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.DarkGray;
             this.pictureBox1.Location = new System.Drawing.Point(6, 29);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(568, 647);
+            this.pictureBox1.Size = new System.Drawing.Size(568, 444);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -640,7 +612,7 @@
             this.DecryptionTab.Location = new System.Drawing.Point(4, 22);
             this.DecryptionTab.Name = "DecryptionTab";
             this.DecryptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DecryptionTab.Size = new System.Drawing.Size(1029, 663);
+            this.DecryptionTab.Size = new System.Drawing.Size(1029, 515);
             this.DecryptionTab.TabIndex = 1;
             this.DecryptionTab.Text = "Decryption";
             this.DecryptionTab.UseVisualStyleBackColor = true;
@@ -693,7 +665,7 @@
             this.groupBox9.Controls.Add(this.label18);
             this.groupBox9.Location = new System.Drawing.Point(585, 149);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(426, 137);
+            this.groupBox9.Size = new System.Drawing.Size(426, 93);
             this.groupBox9.TabIndex = 37;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Author/Owner Information";
@@ -865,12 +837,22 @@
             this.groupBox7.Controls.Add(this.DecryptButton);
             this.groupBox7.Controls.Add(this.label6);
             this.groupBox7.Controls.Add(this.comboBox5);
-            this.groupBox7.Location = new System.Drawing.Point(585, 292);
+            this.groupBox7.Location = new System.Drawing.Point(585, 248);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(426, 381);
+            this.groupBox7.Size = new System.Drawing.Size(426, 97);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Decryption Settings";
+            // 
+            // DecryptButton
+            // 
+            this.DecryptButton.Location = new System.Drawing.Point(108, 49);
+            this.DecryptButton.Name = "DecryptButton";
+            this.DecryptButton.Size = new System.Drawing.Size(299, 23);
+            this.DecryptButton.TabIndex = 4;
+            this.DecryptButton.Text = "Begin Decryption";
+            this.DecryptButton.UseVisualStyleBackColor = true;
+            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
             // 
             // label6
             // 
@@ -920,21 +902,11 @@
             this.AlgoCreationTab.Text = "Algorithm Creation (Extra)";
             this.AlgoCreationTab.UseVisualStyleBackColor = true;
             // 
-            // DecryptButton
-            // 
-            this.DecryptButton.Location = new System.Drawing.Point(6, 54);
-            this.DecryptButton.Name = "DecryptButton";
-            this.DecryptButton.Size = new System.Drawing.Size(175, 23);
-            this.DecryptButton.TabIndex = 4;
-            this.DecryptButton.Text = "Begin Decryption";
-            this.DecryptButton.UseVisualStyleBackColor = true;
-            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1049, 741);
+            this.ClientSize = new System.Drawing.Size(1049, 593);
             this.Controls.Add(this.Decrypt);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -959,7 +931,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.DecryptionTab.ResumeLayout(false);
             this.DecryptionTab.PerformLayout();
@@ -1024,8 +995,6 @@
         private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
