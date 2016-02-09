@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DIP_Algorithm
 {
@@ -17,28 +14,47 @@ namespace DIP_Algorithm
         Bitmap map;
         public long i = 0;
         public static List<byte> encryptAllBytes = new List<byte>();
+        byte[] key;
         public CaesarsCipherEncryption(Stream stream, Bitmap map)
         {
             this.stream = stream;
             this.map = map;
         }
-        
+        public CaesarsCipherEncryption(Stream stream, Bitmap map,string key)
+        {
+            this.stream = stream;
+            this.map = map;
+            this.key = new byte[key.Length];
+            for (int i = 0; i < this.key.Length; i++)
+            {
+                this.key[i] = (byte)key[i];
+            }
+        }
+
+        private string byteToString(byte[] bytes)
+        {
+            string result = "";
+            foreach (byte b in bytes)
+            {
+                result += (char)b;
+            }
+            return result;
+        }
+
         public override void applyEncryption()
         {
-            Percentage = 0;
-            EncryptionMeta meta = new EncryptionMeta();
-            byte[] key = generateKey();
-            string keyStr = "" + (char)key[0] + (char)key[1] + (char)key[2] 
-                //+ (char)key[3]
-                ;
-            int size = (int)Math.Sqrt(stream.Length/3)+1;
             // Problem: Size is not accurate relative to the stream length causes extra data to be encoded during
             // decryption and will result to the data being corrupted.
             // Solution: 00010101 (Current format) change to 00 11 01 11
             //                                               127 64, 32 16, 8 4, 2 1   
             //                                                  R  G  B       R and B Contains data G does not
-            //                                                  FM FM FM      F = Flag if is data M = maximum 255 value
-
+            //  
+            Percentage = 0;
+            EncryptionMeta meta = new EncryptionMeta();
+            if(key == null ||  key.Length==0)
+             key  = generateKey();
+            int size = (int)Math.Sqrt(stream.Length/3)+1;
+            meta.Key = byteToString(key);
             meta.Output = new Bitmap(size, size);
             int x = 0;
             int y = 0;
@@ -132,23 +148,8 @@ namespace DIP_Algorithm
                     if (recordLength != BufferLength)
                         stopDecrypt = true;
                     fileOutput.Write(buffer, 0, recordLength);
-                    /*Used during testing 
-                    allBytes.AddRange(buffer);
-                    if (allBytes.Count > 916) {
-                        int test = 00;
-                    }*/
+                   
                 }
-            /* 
-                    Used during testing
-            for (int i=0;i<encryptAllBytes.Count;i++) {
-                if (encryptAllBytes[i] != allBytes[i])
-                {
-                    byte e = encryptAllBytes[i];
-                    byte d = allBytes[i];
-                    throw new Exception("Not equal");
-                }
-            }
-            */
             fileOutput.Close();
             
         }

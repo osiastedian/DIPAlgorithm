@@ -1,0 +1,6 @@
+1.SHA-256 generate 56 byte key
+2.Retrieve 32 bytes of data from source file
+3.Apply blowfish CBC Encryption
+4.Store result of encryption in Image
+6.Go back to Step 2 until end of file
+7.Export image and key

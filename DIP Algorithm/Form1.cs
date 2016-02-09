@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DIP_Algorithm
@@ -17,11 +12,10 @@ namespace DIP_Algorithm
         Encryption currentEncryption;
         EncryptionMeta output;
         Thread encryptionThread;
-        Thread decryptionThread;
-        Thread updateThread;
         public Form1()
         {
             InitializeComponent();
+            algorithmList.SelectedIndex = 0;
         }
 
         private void openDialogButton_Click(object sender, EventArgs e)
@@ -75,9 +69,12 @@ namespace DIP_Algorithm
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             pictureBox1.Image = currentEncryption.Output.Output;
-            MessageBox.Show("Finished");
             this.output = currentEncryption.Output;
-            this.output.Output.Save("C:\\Users\\osias\\Desktop\\test2.bmp");
+            this.output.Output.Save(destinationFileList.Text+"\\"+output.Key+".bmp");
+            keyTextBox.Text = output.Key;
+            progressBar1.Value = 100;
+            MessageBox.Show("Finished");
+            
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -95,10 +92,29 @@ namespace DIP_Algorithm
 
         private void encryptButton_Click(object sender, EventArgs e)
         {
-            Stream stream = openFileDialog1.OpenFile();
-            //Bitmap bitmap = new Bitmap(pictureBox1.Image);
-            this.currentEncryption  = new CaesarsCipherEncryption(stream, new Bitmap(100, 100)); 
-            encrypt();
+            if (algorithmList.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please select an algorithm to be used.", "Error:");
+                algorithmList.Focus();
+            }
+            else if (Directory.Exists(destinationFileList.Text))
+            {
+                
+                if (algorithmList.Text == "Caesar's Cipher Encryption")
+                {
+                    Stream stream = openFileDialog1.OpenFile();
+                    //Bitmap bitmap = new Bitmap(pictureBox1.Image);
+                    this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
+                    encrypt();
+                    MessageBox.Show("Encryption 1");
+                }
+                else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption") {
+                    MessageBox.Show("Encryption 2");
+                }
+
+            }
+            else
+                MessageBox.Show("Please choose a destination path.","Error:" );
         }
 
         private void openButtonDecryption_Click(object sender, EventArgs e)
@@ -111,8 +127,8 @@ namespace DIP_Algorithm
                 if (file != null)
                 {
                     file.Close();
-                    srcListDecryption.Items.Add(openFileDialog1.FileName);
-                    srcListDecryption.Text = openFileDialog1.FileName;
+                    openFileList.Items.Add(openFileDialog1.FileName);
+                    openFileList.Text = openFileDialog1.FileName;
                 }
             }
             catch (Exception ex)
@@ -125,15 +141,28 @@ namespace DIP_Algorithm
 
         private void DecryptButton_Click(object sender, EventArgs e)
         {
+            try { 
             Stream stream = openFileDialog1.OpenFile();
             //Bitmap bitmap = new Bitmap(pictureBox1.Image);
             this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
             EncryptionMeta output = new EncryptionMeta();
-            output.Key = Microsoft.VisualBasic.Interaction.InputBox("Insert Key:","KEY");
-            output.Output = new Bitmap(stream);
-            this.currentEncryption.Output = output;
-            this.currentEncryption.applyDecryption();
-
+            if (keyTextBox.Text.Length > 0)
+            {
+                output.Key = keyTextBox.Text;
+                output.Output = new Bitmap(stream);
+                stream.Close();
+                this.currentEncryption.Output = output;
+                this.currentEncryption.applyDecryption();
+            }
+            else
+            { 
+                MessageBox.Show("Please input key.", "Error");
+                keyTextBox.Focus();
+            }
+            }catch(FileNotFoundException )
+            {
+                MessageBox.Show("No file selected", "Error");
+            }
         }
     }
 
