@@ -109,7 +109,12 @@ namespace DIP_Algorithm
                     MessageBox.Show("Encryption 1");
                 }
                 else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption") {
-                    MessageBox.Show("Encryption 2");
+                    Stream stream = openFileDialog1.OpenFile();
+                    if(keyTextBox.Text.Length > 0)
+                        currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text),stream);
+                    else
+                        currentEncryption = new SHA265_Blowfish(stream);
+                    
                 }
 
             }
@@ -144,7 +149,8 @@ namespace DIP_Algorithm
             try { 
             Stream stream = openFileDialog1.OpenFile();
             //Bitmap bitmap = new Bitmap(pictureBox1.Image);
-            this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
+            currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
+                ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
             EncryptionMeta output = new EncryptionMeta();
             if (keyTextBox.Text.Length > 0)
             {
@@ -164,6 +170,8 @@ namespace DIP_Algorithm
                 MessageBox.Show("No file selected", "Error");
             }
         }
+
+        
     }
 
     

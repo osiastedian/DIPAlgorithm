@@ -8,21 +8,32 @@ namespace DIP_Algorithm
 {
     class CaesarsCipherEncryption : Encryption
     {
+        public static int DEFAUL_KEY_LENGTH = 8;
         public double Percentage { get; set; }
         public static int BufferLength = 3;
-        Stream stream;
         Bitmap map;
         public long i = 0;
         public static List<byte> encryptAllBytes = new List<byte>();
-        byte[] key;
+        private Stream fileOutput;
+        private string destinationFolder;
+        public string DestinationFolder
+        {
+            get { return destinationFolder; }
+            set {
+                this.destinationFolder = value;
+                if (!Directory.Exists(destinationFolder))
+                    throw new Exception("Directory invalid");
+            }
+        }
+
         public CaesarsCipherEncryption(Stream stream, Bitmap map)
         {
-            this.stream = stream;
+            this.source = stream;
             this.map = map;
         }
         public CaesarsCipherEncryption(Stream stream, Bitmap map,string key)
         {
-            this.stream = stream;
+            this.source = stream;
             this.map = map;
             this.key = new byte[key.Length];
             for (int i = 0; i < this.key.Length; i++)
@@ -53,22 +64,22 @@ namespace DIP_Algorithm
             EncryptionMeta meta = new EncryptionMeta();
             if(key == null ||  key.Length==0)
              key  = generateKey();
-            int size = (int)Math.Sqrt(stream.Length/3)+1;
+            int size = (int)Math.Sqrt(source.Length/3)+1;
             meta.Key = byteToString(key);
             meta.Output = new Bitmap(size, size);
             int x = 0;
             int y = 0;
             int[] colorsARGB = new int[4];
             byte[] buffer = new byte[BufferLength];
-            long streamLength = stream.Length;
+            long streamLength = source.Length;
             int recordLimit = 3;
             bool stopEncryption = false;
             while (y < meta.Output.Height && stopEncryption==false) {
-                if (stream.Position > stream.Length)
+                if (source.Position > source.Length)
                     break;
                 while (x < meta.Output.Width && stopEncryption == false) {
                     colorsARGB[0]= colorsARGB[1]= colorsARGB[2]= colorsARGB[3] = 0;
-                    stream.Read(buffer, 0, buffer.Length);
+                    source.Read(buffer, 0, buffer.Length);
                     if (streamLength  < buffer.Length) { 
                         recordLimit = (int)streamLength;
                         stopEncryption = true;
@@ -87,7 +98,7 @@ namespace DIP_Algorithm
                         colorsARGB[3] += dataFlag;
                     }
                     meta.Output.SetPixel(x, y, Color.FromArgb(colorsARGB[3], colorsARGB[0], colorsARGB[1], colorsARGB[2]));
-                    Percentage = ((double)(meta.Output.Width*y)+x)* buffer.Length / stream.Length;
+                    Percentage = ((double)(meta.Output.Width*y)+x)* buffer.Length / source.Length;
                     x++;
                 }
                 x = 0;
@@ -107,18 +118,14 @@ namespace DIP_Algorithm
         
         public override void applyDecryption()
         {
-            Bitmap map = this.Output.Output;
-            string keyStr = this.Output.Key;
-            byte[] key = new byte[keyStr.Length];
-            for (int i = 0; i < key.Length; i++) {
-                key[i] = (byte)keyStr.ElementAt(i);
-            }
-            Stream fileOutput = new FileStream("C:\\Users\\osias\\Desktop\\testfileoutput",FileMode.OpenOrCreate);
+            Bitmap map = Output.Output;
+            byte[] key = GetBytes(Output.Key);
+            fileOutput = new FileStream(this.destinationFolder+"\\"+Encryption.GetString(key), FileMode.OpenOrCreate);
             byte[] buffer = new byte[BufferLength];
-            //List<byte> allBytes = new List<byte>(); /*Used during testing 
             bool stopDecrypt = false;
             for (int y = 0; y < map.Height && stopDecrypt == false ; y++) 
-                for (int x = 0; x < map.Width && stopDecrypt == false; x++) {
+                for (int x = 0; x < map.Width && stopDecrypt == false; x++)
+                {
                     Color currentpixel = map.GetPixel(x, y);
                     int currentByte = 0;
                     int alpha = currentpixel.A;
@@ -126,29 +133,29 @@ namespace DIP_Algorithm
                     for (int i = 0, maxIndicator = (int)Math.Pow(4, buffer.Length - 1 - i),dataFlag = 32; 
                         i < buffer.Length;
                         i++, maxIndicator = (int)Math.Pow(4, buffer.Length-1-i),dataFlag/=4)
-                    {
-                        switch (i)
                         {
-                            case 0: currentByte = currentpixel.R; break;
-                            case 1: currentByte = currentpixel.G; break;
-                            case 2: currentByte = currentpixel.B; break;
+                            switch (i)
+                                {
+                                    case 0: currentByte = currentpixel.R; break;
+                                    case 1: currentByte = currentpixel.G; break;
+                                    case 2: currentByte = currentpixel.B; break;
+                                }
+                            int tempByte = currentByte - key[i];
+                            buffer[i] = (tempByte < 0) ? (byte)(tempByte + (int)byte.MaxValue) : (byte)tempByte;
+                            if (alpha >= dataFlag)
+                            {
+                                recordLength++;
+                                alpha -= dataFlag;
+                            }
+                            if (buffer[i] == 0 && alpha >= maxIndicator)
+                            { 
+                                buffer[i] += byte.MaxValue;
+                                alpha -= maxIndicator;
+                            }
                         }
-                        int tempByte = currentByte - key[i];
-                        buffer[i] = (tempByte < 0) ? (byte)(tempByte + (int)byte.MaxValue) : (byte)tempByte;
-                        if (alpha >= dataFlag) {
-                            recordLength++;
-                            alpha -= dataFlag;
-                        }
-
-                        if (buffer[i] == 0 && alpha >= maxIndicator) { 
-                            buffer[i] += byte.MaxValue;
-                            alpha -= maxIndicator;
-                        }
-                    }
                     if (recordLength != BufferLength)
                         stopDecrypt = true;
                     fileOutput.Write(buffer, 0, recordLength);
-                   
                 }
             fileOutput.Close();
             
@@ -156,7 +163,7 @@ namespace DIP_Algorithm
 
         public override byte[] generateKey()
         {
-            byte[] result = new byte[BufferLength];
+            byte[] result = new byte[DEFAUL_KEY_LENGTH];
             Random rn = new Random();
             for (int i = 0; i < BufferLength; i++)
             {

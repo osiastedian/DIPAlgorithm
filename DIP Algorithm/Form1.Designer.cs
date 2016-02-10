@@ -58,7 +58,7 @@
             this.encryptButton = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Encryption = new System.Windows.Forms.TabControl();
+            this.EncTab = new System.Windows.Forms.TabControl();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -66,7 +66,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.Encryption.SuspendLayout();
+            this.EncTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -325,24 +325,24 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Encryption
+            // EncTab
             // 
-            this.Encryption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.EncTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Encryption.Controls.Add(this.EncryptionTab);
-            this.Encryption.Location = new System.Drawing.Point(6, 26);
-            this.Encryption.Name = "Encryption";
-            this.Encryption.SelectedIndex = 0;
-            this.Encryption.Size = new System.Drawing.Size(1037, 541);
-            this.Encryption.TabIndex = 6;
+            this.EncTab.Controls.Add(this.EncryptionTab);
+            this.EncTab.Location = new System.Drawing.Point(6, 26);
+            this.EncTab.Name = "EncTab";
+            this.EncTab.SelectedIndex = 0;
+            this.EncTab.Size = new System.Drawing.Size(1037, 541);
+            this.EncTab.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1049, 593);
-            this.Controls.Add(this.Encryption);
+            this.Controls.Add(this.EncTab);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -360,7 +360,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.Encryption.ResumeLayout(false);
+            this.EncTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,7 +397,7 @@
         private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TabControl Encryption;
+        private System.Windows.Forms.TabControl EncTab;
         private System.Windows.Forms.Button button1;
     }
 }
