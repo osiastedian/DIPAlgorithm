@@ -4,7 +4,7 @@
     {
         public EncryptionMeta Output { get; set; }
         public byte[] key { get; set; }
-        public System.IO.Stream source { get; set; }
+        public System.IO.Stream Source { get; set; }
 
 
         public abstract void applyEncryption();

@@ -146,32 +146,40 @@ namespace DIP_Algorithm
 
         private void DecryptButton_Click(object sender, EventArgs e)
         {
-            try { 
-            Stream stream = openFileDialog1.OpenFile();
-            //Bitmap bitmap = new Bitmap(pictureBox1.Image);
-            currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
-                ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
-            EncryptionMeta output = new EncryptionMeta();
-            if (keyTextBox.Text.Length > 0)
-            {
-                output.Key = keyTextBox.Text;
-                output.Output = new Bitmap(stream);
-                stream.Close();
-                this.currentEncryption.Output = output;
-                this.currentEncryption.applyDecryption();
+            if(algorithmList.SelectedIndex == 0) { 
+                try { 
+                Stream stream = openFileDialog1.OpenFile();
+                currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
+                    ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
+                EncryptionMeta output = new EncryptionMeta();
+                if (keyTextBox.Text.Length > 0)
+                {
+                    output.Key = keyTextBox.Text;
+                    output.Output = new Bitmap(stream);
+                    stream.Close();
+                    this.currentEncryption.Output = output;
+                    this.currentEncryption.applyDecryption();
+                }
+                else
+                { 
+                    MessageBox.Show("Please input key.", "Error");
+                    keyTextBox.Focus();
+                }
+                }catch(FileNotFoundException )
+                {
+                    MessageBox.Show("No file selected", "Error");
+                }
             }
-            else
-            { 
-                MessageBox.Show("Please input key.", "Error");
-                keyTextBox.Focus();
-            }
-            }catch(FileNotFoundException )
+            else if (algorithmList.SelectedIndex == 0)
             {
-                MessageBox.Show("No file selected", "Error");
+                
             }
         }
 
-        
+        private void keyTextBox_TextChanged(object sender, EventArgs e)
+        {
+            keyLengthLabel.Text = keyTextBox.Text.Length + "";
+        }
     }
 
     

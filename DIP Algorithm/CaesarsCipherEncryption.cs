@@ -28,12 +28,12 @@ namespace DIP_Algorithm
 
         public CaesarsCipherEncryption(Stream stream, Bitmap map)
         {
-            this.source = stream;
+            this.Source = stream;
             this.map = map;
         }
         public CaesarsCipherEncryption(Stream stream, Bitmap map,string key)
         {
-            this.source = stream;
+            this.Source = stream;
             this.map = map;
             this.key = new byte[key.Length];
             for (int i = 0; i < this.key.Length; i++)
@@ -64,22 +64,22 @@ namespace DIP_Algorithm
             EncryptionMeta meta = new EncryptionMeta();
             if(key == null ||  key.Length==0)
              key  = generateKey();
-            int size = (int)Math.Sqrt(source.Length/3)+1;
+            int size = (int)Math.Sqrt(Source.Length/3)+1;
             meta.Key = byteToString(key);
             meta.Output = new Bitmap(size, size);
             int x = 0;
             int y = 0;
             int[] colorsARGB = new int[4];
             byte[] buffer = new byte[BufferLength];
-            long streamLength = source.Length;
+            long streamLength = Source.Length;
             int recordLimit = 3;
             bool stopEncryption = false;
             while (y < meta.Output.Height && stopEncryption==false) {
-                if (source.Position > source.Length)
+                if (Source.Position > Source.Length)
                     break;
                 while (x < meta.Output.Width && stopEncryption == false) {
                     colorsARGB[0]= colorsARGB[1]= colorsARGB[2]= colorsARGB[3] = 0;
-                    source.Read(buffer, 0, buffer.Length);
+                    Source.Read(buffer, 0, buffer.Length);
                     if (streamLength  < buffer.Length) { 
                         recordLimit = (int)streamLength;
                         stopEncryption = true;
@@ -98,7 +98,7 @@ namespace DIP_Algorithm
                         colorsARGB[3] += dataFlag;
                     }
                     meta.Output.SetPixel(x, y, Color.FromArgb(colorsARGB[3], colorsARGB[0], colorsARGB[1], colorsARGB[2]));
-                    Percentage = ((double)(meta.Output.Width*y)+x)* buffer.Length / source.Length;
+                    Percentage = ((double)(meta.Output.Width*y)+x)* buffer.Length / Source.Length;
                     x++;
                 }
                 x = 0;

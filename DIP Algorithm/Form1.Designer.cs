@@ -59,6 +59,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
+            this.label5 = new System.Windows.Forms.Label();
+            this.keyLengthLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -237,6 +239,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.keyLengthLabel);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.keyTextBox);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label1);
@@ -256,6 +260,7 @@
             this.keyTextBox.Name = "keyTextBox";
             this.keyTextBox.Size = new System.Drawing.Size(279, 20);
             this.keyTextBox.TabIndex = 7;
+            this.keyTextBox.TextChanged += new System.EventHandler(this.keyTextBox_TextChanged);
             // 
             // label4
             // 
@@ -337,6 +342,24 @@
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(41, 75);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Key Length:";
+            // 
+            // keyLengthLabel
+            // 
+            this.keyLengthLabel.AutoSize = true;
+            this.keyLengthLabel.Location = new System.Drawing.Point(111, 75);
+            this.keyLengthLabel.Name = "keyLengthLabel";
+            this.keyLengthLabel.Size = new System.Drawing.Size(13, 13);
+            this.keyLengthLabel.TabIndex = 9;
+            this.keyLengthLabel.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -399,6 +422,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl EncTab;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label keyLengthLabel;
+        private System.Windows.Forms.Label label5;
     }
 }
 
