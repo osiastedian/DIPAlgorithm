@@ -12,6 +12,7 @@ namespace DIP_Algorithm
         Encryption currentEncryption;
         EncryptionMeta output;
         Thread encryptionThread;
+        Thread progressThread;
         public Form1()
         {
             InitializeComponent();
@@ -57,38 +58,33 @@ namespace DIP_Algorithm
                 Bitmap map = new Bitmap(100, 100);
                 encryptionThread = new Thread(new ThreadStart(currentEncryption.applyEncryption));
                 encryptionThread.Start();
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.DoWork += Worker_DoWork;
-                worker.ProgressChanged += Worker_ProgressChanged;
-                worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-                worker.WorkerReportsProgress = true;
-                worker.RunWorkerAsync();
+                progressThread = new Thread(new ThreadStart(this.runProgressListener));
+                progressThread.Start();
             }
         }
 
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            pictureBox1.Image = currentEncryption.Output.Output;
-            this.output = currentEncryption.Output;
-            this.output.Output.Save(destinationFileList.Text+"\\"+output.Key+".bmp");
-            keyTextBox.Text = output.Key;
-            progressBar1.Value = 100;
-            MessageBox.Show("Finished");
-            
-        }
+        public void runProgressListener() {
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            progressBar1.Value = e.ProgressPercentage;
-        }
-
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            while (encryptionThread.IsAlive) { 
-                worker.ReportProgress((int)(currentEncryption.getPercentage() * 100));
+            while (encryptionThread.IsAlive)
+            {
+                this.Invoke((MethodInvoker)delegate {
+                    progressBar1.Value = (int)(currentEncryption.getPercentage() * 100);
+                });
             }
+
+
+            this.Invoke((MethodInvoker)delegate {
+                // FINISHED
+                pictureBox1.Image = currentEncryption.Output.Output;
+                output = currentEncryption.Output;
+                output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0,8) + ".bmp");
+                keyTextBox.Text = output.Key;
+                progressBar1.Value = 100;
+                MessageBox.Show("Finished");
+            });
         }
+
+       
 
         private void encryptButton_Click(object sender, EventArgs e)
         {
@@ -106,15 +102,25 @@ namespace DIP_Algorithm
                     //Bitmap bitmap = new Bitmap(pictureBox1.Image);
                     this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
                     encrypt();
-                    MessageBox.Show("Encryption 1");
                 }
                 else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption") {
                     Stream stream = openFileDialog1.OpenFile();
                     if(keyTextBox.Text.Length > 0)
-                        currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text),stream);
+                    {
+                        if (keyTextBox.Text.Length > 8)
+                        {
+                            currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), stream);
+                            encrypt();
+                        }
+                        else
+                            MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
+                    }
                     else
+                    { 
                         currentEncryption = new SHA265_Blowfish(stream);
-                    
+                        encrypt();
+                    }
+
                 }
 
             }
@@ -146,9 +152,9 @@ namespace DIP_Algorithm
 
         private void DecryptButton_Click(object sender, EventArgs e)
         {
-            if(algorithmList.SelectedIndex == 0) { 
+            Stream stream = openFileDialog1.OpenFile();
+            if (algorithmList.SelectedIndex == 0) { 
                 try { 
-                Stream stream = openFileDialog1.OpenFile();
                 currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
                     ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
                 EncryptionMeta output = new EncryptionMeta();
@@ -170,15 +176,37 @@ namespace DIP_Algorithm
                     MessageBox.Show("No file selected", "Error");
                 }
             }
-            else if (algorithmList.SelectedIndex == 0)
+            else if (algorithmList.SelectedIndex == 1)
             {
-                
+                currentEncryption = new SHA265_Blowfish(null);
+                ((SHA265_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
+                EncryptionMeta output = new EncryptionMeta();
+                if (keyTextBox.Text.Length > 0)
+                {
+                    output.Key = keyTextBox.Text;
+                    output.Output = new Bitmap(stream);
+                    Color color = output.Output.GetPixel(0, 0);
+                    stream.Close();
+                    currentEncryption.Output = output;
+                    currentEncryption.applyDecryption();
+                }
+
             }
         }
 
         private void keyTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (keyTextBox.Text.Length > 56 && algorithmList.SelectedIndex == 1) {
+                MessageBox.Show("Blowfish Requirement: Key Length to big. (Maximum is 56)");
+                keyTextBox.Text = keyTextBox.Text.Substring(0, 56);
+                keyTextBox.Focus();
+            }
             keyLengthLabel.Text = keyTextBox.Text.Length + "";
+        }
+
+        private void algorithmList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            keyTextBox_TextChanged(sender, e);
         }
     }
 

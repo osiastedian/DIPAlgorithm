@@ -50,6 +50,8 @@
             this.openDialogButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.keyLengthLabel = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.keyTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,8 +61,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
-            this.label5 = new System.Windows.Forms.Label();
-            this.keyLengthLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -254,6 +254,24 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Encryption Settings";
             // 
+            // keyLengthLabel
+            // 
+            this.keyLengthLabel.AutoSize = true;
+            this.keyLengthLabel.Location = new System.Drawing.Point(111, 75);
+            this.keyLengthLabel.Name = "keyLengthLabel";
+            this.keyLengthLabel.Size = new System.Drawing.Size(13, 13);
+            this.keyLengthLabel.TabIndex = 9;
+            this.keyLengthLabel.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(41, 75);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Key Length:";
+            // 
             // keyTextBox
             // 
             this.keyTextBox.Location = new System.Drawing.Point(111, 49);
@@ -292,6 +310,7 @@
             this.algorithmList.Size = new System.Drawing.Size(279, 21);
             this.algorithmList.TabIndex = 0;
             this.algorithmList.Text = "Algorithms";
+            this.algorithmList.SelectedIndexChanged += new System.EventHandler(this.algorithmList_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -322,7 +341,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.DarkGray;
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Location = new System.Drawing.Point(6, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(568, 467);
@@ -341,24 +360,6 @@
             this.EncTab.SelectedIndex = 0;
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 75);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Key Length:";
-            // 
-            // keyLengthLabel
-            // 
-            this.keyLengthLabel.AutoSize = true;
-            this.keyLengthLabel.Location = new System.Drawing.Point(111, 75);
-            this.keyLengthLabel.Name = "keyLengthLabel";
-            this.keyLengthLabel.Size = new System.Drawing.Size(13, 13);
-            this.keyLengthLabel.TabIndex = 9;
-            this.keyLengthLabel.Text = "0";
             // 
             // Form1
             // 

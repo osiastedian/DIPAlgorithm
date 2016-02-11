@@ -11,7 +11,6 @@ namespace DIP_Algorithm
         public static int DEFAUL_KEY_LENGTH = 8;
         public double Percentage { get; set; }
         public static int BufferLength = 3;
-        Bitmap map;
         public long i = 0;
         public static List<byte> encryptAllBytes = new List<byte>();
         private Stream fileOutput;
@@ -26,15 +25,14 @@ namespace DIP_Algorithm
             }
         }
 
+
         public CaesarsCipherEncryption(Stream stream, Bitmap map)
         {
             this.Source = stream;
-            this.map = map;
         }
         public CaesarsCipherEncryption(Stream stream, Bitmap map,string key)
         {
             this.Source = stream;
-            this.map = map;
             this.key = new byte[key.Length];
             for (int i = 0; i < this.key.Length; i++)
             {
