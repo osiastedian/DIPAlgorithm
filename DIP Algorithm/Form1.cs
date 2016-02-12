@@ -178,7 +178,7 @@ namespace DIP_Algorithm
             }
             else if (algorithmList.SelectedIndex == 1)
             {
-                currentEncryption = new SHA265_Blowfish(null);
+                currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), null);
                 ((SHA265_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
                 EncryptionMeta output = new EncryptionMeta();
                 if (keyTextBox.Text.Length > 0)

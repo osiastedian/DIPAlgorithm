@@ -104,17 +104,12 @@ namespace DIP_Algorithm
             byte[] encryptedSource = new byte[Source.Length];
             Source.Read(encryptedSource, 0, encryptedSource.Length);
             encryptedSource = blowfish.Encrypt_CBC(encryptedSource);
+            byte[] decrypted = blowfish.Decrypt_CBC(encryptedSource);
             outputLength = encryptedSource.Length;
-            putDataToDataRow();
+            putDataToDataRow(encryptedSource.Length);
             long position = 0;
             while (true)
             {
-                //if (Source.Position >= Source.Length)
-                //    break;
-                //Source.Read(buffer, 0, PIXEL_DATA_SIZE);
-                //buffer = blowfish.Encrypt_CBC(buffer);
-                //buffer = blowfish.Decrypt_CBC(buffer);
-                //addDataToImage(buffer);
                 if (position >= encryptedSource.Length)
                     break;
                 buffer = extractBytes(encryptedSource, position , position+4);
@@ -147,9 +142,9 @@ namespace DIP_Algorithm
             return result;
 
         }
-        private void putDataToDataRow()
+        private void putDataToDataRow(long length)
         {
-            byte[] lengthDataBytes = BitConverter.GetBytes(Source.Length);
+            byte[] lengthDataBytes = BitConverter.GetBytes(length);
             string hext = BitConverter.ToString(lengthDataBytes);
             long test = BitConverter.ToInt64(lengthDataBytes, 0);
             byte[] buffer = new byte[PIXEL_DATA_SIZE];
