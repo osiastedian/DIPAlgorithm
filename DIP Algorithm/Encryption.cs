@@ -1,4 +1,6 @@
-﻿namespace DIP_Algorithm
+﻿using System.Globalization;
+
+namespace DIP_Algorithm
 {
     public abstract class Encryption
     {
@@ -30,6 +32,23 @@
                 array[i] = (char)bytes[i];
             }
             return new string(array);
+        }
+
+        public static byte[] GetBytesFromHexString(string hexString)
+        {
+            if (hexString.Length % 2 != 0)
+            {
+                throw new System.ArgumentException(System.String.Format(CultureInfo.InvariantCulture, "The binary key cannot have an odd number of digits: {0}", hexString));
+            }
+
+            byte[] HexAsBytes = new byte[hexString.Length / 2];
+            for (int index = 0; index < HexAsBytes.Length; index++)
+            {
+                string byteValue = hexString.Substring(index * 2, 2);
+                HexAsBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+            }
+
+            return HexAsBytes;
         }
 
 

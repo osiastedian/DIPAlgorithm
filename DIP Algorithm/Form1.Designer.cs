@@ -61,6 +61,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
+            this.hexStringFlag = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -163,7 +164,7 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(580, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(417, 237);
+            this.groupBox1.Size = new System.Drawing.Size(417, 244);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
@@ -239,6 +240,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.hexStringFlag);
             this.groupBox2.Controls.Add(this.keyLengthLabel);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.keyTextBox);
@@ -249,7 +251,7 @@
             this.groupBox2.Controls.Add(this.encryptButton);
             this.groupBox2.Location = new System.Drawing.Point(9, 107);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(402, 112);
+            this.groupBox2.Size = new System.Drawing.Size(402, 130);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Encryption Settings";
@@ -257,7 +259,7 @@
             // keyLengthLabel
             // 
             this.keyLengthLabel.AutoSize = true;
-            this.keyLengthLabel.Location = new System.Drawing.Point(111, 75);
+            this.keyLengthLabel.Location = new System.Drawing.Point(231, 76);
             this.keyLengthLabel.Name = "keyLengthLabel";
             this.keyLengthLabel.Size = new System.Drawing.Size(13, 13);
             this.keyLengthLabel.TabIndex = 9;
@@ -266,7 +268,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 75);
+            this.label5.Location = new System.Drawing.Point(161, 76);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 13);
             this.label5.TabIndex = 8;
@@ -314,7 +316,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(280, 75);
+            this.button1.Location = new System.Drawing.Point(280, 96);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 26);
             this.button1.TabIndex = 5;
@@ -324,7 +326,7 @@
             // 
             // encryptButton
             // 
-            this.encryptButton.Location = new System.Drawing.Point(164, 75);
+            this.encryptButton.Location = new System.Drawing.Point(164, 96);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(110, 26);
             this.encryptButton.TabIndex = 5;
@@ -342,6 +344,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(6, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(568, 467);
@@ -360,6 +363,16 @@
             this.EncTab.SelectedIndex = 0;
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
+            // 
+            // hexStringFlag
+            // 
+            this.hexStringFlag.AutoSize = true;
+            this.hexStringFlag.Location = new System.Drawing.Point(310, 75);
+            this.hexStringFlag.Name = "hexStringFlag";
+            this.hexStringFlag.Size = new System.Drawing.Size(75, 17);
+            this.hexStringFlag.TabIndex = 10;
+            this.hexStringFlag.Text = "Hex String";
+            this.hexStringFlag.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -425,6 +438,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label keyLengthLabel;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox hexStringFlag;
     }
 }
 

@@ -13,6 +13,10 @@ namespace DIP_Algorithm
         EncryptionMeta output;
         Thread encryptionThread;
         Thread progressThread;
+        public static string OPERATION_ENCRYPTION = "Encryption";
+        public static string OPERATION_DECRYPTION = "Decryption";
+        
+        private string currentOperation = null;
         public Form1()
         {
             InitializeComponent();
@@ -48,7 +52,7 @@ namespace DIP_Algorithm
             destinationFileList.Items.Add(folderBrowserDialog1.SelectedPath);
             
         }
-        private void encrypt() {
+        private void EncryptAndDecryptFunction(bool operation) {
             if (encryptionThread!=null && encryptionThread.IsAlive)
             {
                 MessageBox.Show("There's another encryption process ongoing.");
@@ -56,9 +60,13 @@ namespace DIP_Algorithm
             else
             {
                 Bitmap map = new Bitmap(100, 100);
-                encryptionThread = new Thread(new ThreadStart(currentEncryption.applyEncryption));
+                if(operation)
+                    encryptionThread = new Thread(new ThreadStart(currentEncryption.applyEncryption));
+                else
+                    encryptionThread = new Thread(new ThreadStart(currentEncryption.applyDecryption));
                 encryptionThread.Start();
                 progressThread = new Thread(new ThreadStart(this.runProgressListener));
+                
                 progressThread.Start();
             }
         }
@@ -77,10 +85,12 @@ namespace DIP_Algorithm
                 // FINISHED
                 pictureBox1.Image = currentEncryption.Output.Output;
                 output = currentEncryption.Output;
-                output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0,8) + ".bmp");
+                if(currentOperation == OPERATION_ENCRYPTION)
+                    output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0,8) + ".bmp");
                 keyTextBox.Text = output.Key;
                 progressBar1.Value = 100;
-                MessageBox.Show("Finished");
+                MessageBox.Show("Finished "+ currentOperation);
+                currentOperation = null;
             });
         }
 
@@ -88,6 +98,7 @@ namespace DIP_Algorithm
 
         private void encryptButton_Click(object sender, EventArgs e)
         {
+            currentOperation = OPERATION_ENCRYPTION;
             if (algorithmList.SelectedIndex < 0)
             {
                 MessageBox.Show("Please select an algorithm to be used.", "Error:");
@@ -101,28 +112,34 @@ namespace DIP_Algorithm
                     Stream stream = openFileDialog1.OpenFile();
                     //Bitmap bitmap = new Bitmap(pictureBox1.Image);
                     this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
-                    encrypt();
+                    EncryptAndDecryptFunction(true);
                 }
                 else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption") {
                     Stream stream = openFileDialog1.OpenFile();
                     if(keyTextBox.Text.Length > 0)
                     {
-                        if (keyTextBox.Text.Length > 8)
+                        if (keyTextBox.Text.Length >= 8)
                         {
-                            currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), stream);
-                            encrypt();
+                            byte[] key;
+                            if (hexStringFlag.Checked)
+                                key = Encryption.GetBytesFromHexString(keyTextBox.Text);
+                            else
+                                key = Encryption.GetBytes(keyTextBox.Text);
+                            currentEncryption = new SHA256_Blowfish(key, stream);
+                            EncryptAndDecryptFunction(true);
                         }
                         else
                             MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
                     }
                     else
-                    { 
-                        currentEncryption = new SHA265_Blowfish(stream);
-                        encrypt();
+                    {
+                        hexStringFlag.Checked = true;
+                        currentEncryption = new SHA256_Blowfish(stream);
+                        EncryptAndDecryptFunction(true);
                     }
 
                 }
-
+                
             }
             else
                 MessageBox.Show("Please choose a destination path.","Error:" );
@@ -153,6 +170,7 @@ namespace DIP_Algorithm
         private void DecryptButton_Click(object sender, EventArgs e)
         {
             Stream stream = openFileDialog1.OpenFile();
+            currentOperation = OPERATION_DECRYPTION;
             if (algorithmList.SelectedIndex == 0) { 
                 try { 
                 currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
@@ -164,7 +182,8 @@ namespace DIP_Algorithm
                     output.Output = new Bitmap(stream);
                     stream.Close();
                     this.currentEncryption.Output = output;
-                    this.currentEncryption.applyDecryption();
+                     //this.currentEncryption.applyDecryption();
+                     EncryptAndDecryptFunction(false);
                 }
                 else
                 { 
@@ -178,8 +197,14 @@ namespace DIP_Algorithm
             }
             else if (algorithmList.SelectedIndex == 1)
             {
-                currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), null);
-                ((SHA265_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
+                byte[] key;
+                if (hexStringFlag.Checked)
+                    key = Encryption.GetBytesFromHexString(keyTextBox.Text);
+                else
+                    key = Encryption.GetBytes(keyTextBox.Text);
+                currentEncryption = new SHA256_Blowfish(key, null);
+                //currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), null);
+                ((SHA256_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
                 EncryptionMeta output = new EncryptionMeta();
                 if (keyTextBox.Text.Length > 0)
                 {
@@ -188,15 +213,17 @@ namespace DIP_Algorithm
                     Color color = output.Output.GetPixel(0, 0);
                     stream.Close();
                     currentEncryption.Output = output;
-                    currentEncryption.applyDecryption();
+                    //currentEncryption.applyDecryption();
+                    EncryptAndDecryptFunction(false);
                 }
 
             }
         }
+        
 
         private void keyTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (keyTextBox.Text.Length > 56 && algorithmList.SelectedIndex == 1) {
+            if (keyTextBox.Text.Length > 56 && algorithmList.SelectedIndex == 1 && hexStringFlag.Checked == false) {
                 MessageBox.Show("Blowfish Requirement: Key Length to big. (Maximum is 56)");
                 keyTextBox.Text = keyTextBox.Text.Substring(0, 56);
                 keyTextBox.Focus();

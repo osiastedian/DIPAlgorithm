@@ -6,17 +6,9 @@ using System.Security.Cryptography;
 
 namespace DIP_Algorithm
 {
-    class SHA265_Blowfish : Encryption
+    class SHA256_Blowfish : Encryption
     {
-
-        /// <summary>
-        /// Data Row Format
-        /// Data length = 102
-        /// 
-        /// 
-        /// </summary>
-
-
+        
         public readonly int BlowFish_KEY_SIZE_DEFAULT = 56;
         private readonly byte[] BlowFish_IV_DEFAULT = {(byte)'I', (byte)'A', (byte)'N', (byte)'O', (byte)'S', (byte)'I', (byte)'A', (byte)'S' };
         public readonly int DATA_ROW_NUMBER = 1;
@@ -38,22 +30,22 @@ namespace DIP_Algorithm
         }
 
 
-        public SHA265_Blowfish(Stream source)
+        public SHA256_Blowfish(Stream source)
         {
-            this.key = new byte[BlowFish_KEY_SIZE_DEFAULT];
+            key = new byte[BlowFish_KEY_SIZE_DEFAULT];
             System.Buffer.BlockCopy(generateKey(), 0, key, 0, BlowFish_KEY_SIZE_DEFAULT);
             this.Source = source;
             blowfish = new BlowFish(key);
             blowfish.IV = BlowFish_IV_DEFAULT;
             initializeOutput();
+            this.Output.Key = BitConverter.ToString(key).Replace("-", "");
         }
 
-        public SHA265_Blowfish(byte[] keySrc, Stream source) {
+        public SHA256_Blowfish(byte[] keySrc, Stream source) {
             keySrc = generateKey(keySrc);
             int length = Math.Min(keySrc.Length, BlowFish_KEY_SIZE_DEFAULT);
             key = new byte[length];
-            for (int i=0;i<length;i++)
-                key[i] = keySrc[i];
+            keySrc.CopyTo(key, 0);
             this.Source = source;
             blowfish = new BlowFish(keySrc);
             blowfish.IV = BlowFish_IV_DEFAULT;
