@@ -13,6 +13,8 @@ namespace DIP_Algorithm
         EncryptionMeta output;
         Thread encryptionThread;
         Thread progressThread;
+        System.Timers.Timer timer;
+        double timerTicks = 0;
         public static string OPERATION_ENCRYPTION = "Encryption";
         public static string OPERATION_DECRYPTION = "Decryption";
         
@@ -21,7 +23,17 @@ namespace DIP_Algorithm
         {
             InitializeComponent();
             algorithmList.SelectedIndex = 0;
+
+            timer = new System.Timers.Timer(10);
+            timer.Elapsed += delegate {
+                timerTicks += timer.Interval;
+                statusLabel.Text = ""+ timeToString(timerTicks);
+            };
+
+
         }
+
+       
 
         private void openDialogButton_Click(object sender, EventArgs e)
         {
@@ -72,6 +84,9 @@ namespace DIP_Algorithm
         }
 
         public void runProgressListener() {
+            this.Invoke((MethodInvoker)delegate {
+                timer.Start();
+            });
 
             while (encryptionThread.IsAlive)
             {
@@ -89,12 +104,19 @@ namespace DIP_Algorithm
                     output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0,8) + ".bmp");
                 keyTextBox.Text = output.Key;
                 progressBar1.Value = 100;
-                MessageBox.Show("Finished "+ currentOperation);
+                timer.Stop();
+                MessageBox.Show("Finished "+ currentOperation+ "Time:"+ timeToString(timerTicks));
+                timerTicks = 0;
                 currentOperation = null;
             });
         }
 
-       
+        private string timeToString(double ticks)
+        {
+            DateTime dt = new DateTime(0);
+            dt = dt.AddMilliseconds(ticks);
+            return dt.Hour+":"+dt.Minute+":"+dt.Second+":"+dt.Millisecond;
+        }
 
         private void encryptButton_Click(object sender, EventArgs e)
         {

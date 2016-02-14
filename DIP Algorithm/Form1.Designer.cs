@@ -30,7 +30,7 @@
         {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +50,7 @@
             this.openDialogButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.hexStringFlag = new System.Windows.Forms.CheckBox();
             this.keyLengthLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.keyTextBox = new System.Windows.Forms.TextBox();
@@ -61,7 +62,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
-            this.hexStringFlag = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -76,7 +76,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2});
+            this.statusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 571);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1049, 22);
@@ -89,11 +89,11 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(42, 17);
             this.toolStripStatusLabel1.Text = "Status:";
             // 
-            // toolStripStatusLabel2
+            // statusLabel
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(66, 17);
-            this.toolStripStatusLabel2.Text = "No Process";
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(66, 17);
+            this.statusLabel.Text = "No Process";
             // 
             // menuStrip1
             // 
@@ -256,6 +256,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Encryption Settings";
             // 
+            // hexStringFlag
+            // 
+            this.hexStringFlag.AutoSize = true;
+            this.hexStringFlag.Location = new System.Drawing.Point(310, 75);
+            this.hexStringFlag.Name = "hexStringFlag";
+            this.hexStringFlag.Size = new System.Drawing.Size(75, 17);
+            this.hexStringFlag.TabIndex = 10;
+            this.hexStringFlag.Text = "Hex String";
+            this.hexStringFlag.UseVisualStyleBackColor = true;
+            // 
             // keyLengthLabel
             // 
             this.keyLengthLabel.AutoSize = true;
@@ -364,16 +374,6 @@
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
             // 
-            // hexStringFlag
-            // 
-            this.hexStringFlag.AutoSize = true;
-            this.hexStringFlag.Location = new System.Drawing.Point(310, 75);
-            this.hexStringFlag.Name = "hexStringFlag";
-            this.hexStringFlag.Size = new System.Drawing.Size(75, 17);
-            this.hexStringFlag.TabIndex = 10;
-            this.hexStringFlag.Text = "Hex String";
-            this.hexStringFlag.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -412,7 +412,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
