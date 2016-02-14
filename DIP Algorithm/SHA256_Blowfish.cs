@@ -16,7 +16,8 @@ namespace DIP_Algorithm
         public readonly int PIXEL_DATA_SIZE = 4;
         private float percentage;
         private BlowFish blowfish;
-        private long outputLength = -1;
+        private long encryptedLength = -1;
+        private long orignalLength = -1;
         private string destinationFolder;
         public string DestinationFolder
         {
@@ -67,14 +68,15 @@ namespace DIP_Algorithm
             retrieveDataFromDataRow();
             Stream destination = new FileStream(destinationFolder + "\\test", FileMode.OpenOrCreate);
             byte[] buffer = new byte[PIXEL_DATA_SIZE];
-            byte[] encryptedData = new byte[outputLength];
+            byte[] encryptedData = new byte[encryptedLength];
             long count = 0;
             while (true)
             {
-                if (count >= outputLength)
+                if (count >= encryptedLength)
                     break;
                 buffer = getDataFromImage(x, y);
-                addBytes(ref encryptedData, count, buffer);
+                
+                addBytes(ref encryptedData, count, buffer, Math.Min(PIXEL_DATA_SIZE, encryptedLength - count));
                 count += buffer.Length;
                 x++;
                 if (x >= Output.Output.Width)
@@ -82,10 +84,10 @@ namespace DIP_Algorithm
                     y++;
                     x = 0;
                 }
-                percentage = count / outputLength;
+                percentage = count / encryptedLength;
             }
             encryptedData = blowfish.Decrypt_CBC(encryptedData);
-            destination.Write(encryptedData, 0, encryptedData.Length);
+            destination.Write(encryptedData, 0, Convert.ToInt32(orignalLength));
             percentage = 1;
             destination.Close();
         }
@@ -97,15 +99,15 @@ namespace DIP_Algorithm
             Source.Read(encryptedSource, 0, encryptedSource.Length);
             encryptedSource = blowfish.Encrypt_CBC(encryptedSource);
             byte[] decrypted = blowfish.Decrypt_CBC(encryptedSource);
-            outputLength = encryptedSource.Length;
-            putDataToDataRow(encryptedSource.Length);
-            long position = 0;
+            encryptedLength = encryptedSource.Length;
+            putDataToDataRow(encryptedSource.Length,Source.Length);
+            long count = 0;
             while (true)
             {
-                if (position >= encryptedSource.Length)
+                if (count >= encryptedSource.Length)
                     break;
-                buffer = extractBytes(encryptedSource, position , position+4);
-                position += 4;
+                buffer = extractBytes(encryptedSource, count , count+PIXEL_DATA_SIZE);
+                count += PIXEL_DATA_SIZE;
                 addDataToImage(buffer);
                 x++;
                 if (x >= Output.Output.Width)
@@ -117,9 +119,12 @@ namespace DIP_Algorithm
             }
             percentage = 1;
         }
-        private void addBytes(ref byte[] array,long start,byte []data)
+        private void addBytes(ref byte[] array,long start,byte []data,long lengthRecord)
         {
-            for(long i = 0; i < data.Length && start<array.Length; i++)
+            if (lengthRecord != PIXEL_DATA_SIZE) {
+                Console.WriteLine(lengthRecord);
+            }
+            for(long i = 0; i < lengthRecord && start<array.Length; i++)
             {
                 array[start++] = data[i];
             }
@@ -134,18 +139,28 @@ namespace DIP_Algorithm
             return result;
 
         }
-        private void putDataToDataRow(long length)
+        private void putDataToDataRow(long encryptedLength,long originalLength)
         {
-            byte[] lengthDataBytes = BitConverter.GetBytes(length);
-            string hext = BitConverter.ToString(lengthDataBytes);
-            long test = BitConverter.ToInt64(lengthDataBytes, 0);
+            byte[] encryptedLengthDataBytes = BitConverter.GetBytes(encryptedLength);
+            byte[] originalLengthDataBytes = BitConverter.GetBytes(originalLength);
+            string hext = BitConverter.ToString(encryptedLengthDataBytes);
+            long test = BitConverter.ToInt64(encryptedLengthDataBytes, 0);
             byte[] buffer = new byte[PIXEL_DATA_SIZE];
-            for (int i = 0; i < lengthDataBytes.Length; )
+            for (int i = 0; i < encryptedLengthDataBytes.Length; )
             {
-                buffer[0] = lengthDataBytes[i++];
-                buffer[1] = lengthDataBytes[i++];
-                buffer[2] = lengthDataBytes[i++];
-                buffer[3] = lengthDataBytes[i++];
+                buffer[0] = encryptedLengthDataBytes[i++];
+                buffer[1] = encryptedLengthDataBytes[i++];
+                buffer[2] = encryptedLengthDataBytes[i++];
+                buffer[3] = encryptedLengthDataBytes[i++];
+                addDataToImage(buffer);
+                x++;
+            }
+            for (int i = 0; i < encryptedLengthDataBytes.Length;)
+            {
+                buffer[0] = originalLengthDataBytes[i++];
+                buffer[1] = originalLengthDataBytes[i++];
+                buffer[2] = originalLengthDataBytes[i++];
+                buffer[3] = originalLengthDataBytes[i++];
                 addDataToImage(buffer);
                 x++;
             }
@@ -155,11 +170,15 @@ namespace DIP_Algorithm
         }
         private void retrieveDataFromDataRow() {
             x = y = 0;
-            byte[] lengthDataBytes = new byte[8];
-            getDataFromImage(x++, y).CopyTo(lengthDataBytes, 0);
-            getDataFromImage(x, y).CopyTo(lengthDataBytes, 4);
+            byte[] encryptedLengthDataBytes = new byte[8];
+            byte[] originalLengthDataBytes = new byte[8];
+            getDataFromImage(x++, y).CopyTo(encryptedLengthDataBytes, 0);
+            getDataFromImage(x++, y).CopyTo(encryptedLengthDataBytes, 4);
+            getDataFromImage(x++, y).CopyTo(originalLengthDataBytes, 0);
+            getDataFromImage(x++, y).CopyTo(originalLengthDataBytes, 4);
 
-            outputLength = BitConverter.ToInt64(lengthDataBytes, 0);
+            encryptedLength = BitConverter.ToInt64(encryptedLengthDataBytes, 0);
+            orignalLength = BitConverter.ToInt64(originalLengthDataBytes, 0); 
             x = 0;
             y = 1;
         }
@@ -168,7 +187,7 @@ namespace DIP_Algorithm
         private int y = 0;
 
         private byte[] getDataFromImage(int x, int y) {
-            byte[] data = new byte[4];
+            byte[] data = new byte[PIXEL_DATA_SIZE];
             Color color = this.Output.Output.GetPixel(x, y);
             data[0] = color.A;
             data[1] = color.R;
