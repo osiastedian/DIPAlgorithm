@@ -98,7 +98,6 @@ namespace DIP_Algorithm
             byte[] encryptedSource = new byte[Source.Length];
             Source.Read(encryptedSource, 0, encryptedSource.Length);
             encryptedSource = blowfish.Encrypt_CBC(encryptedSource);
-            byte[] decrypted = blowfish.Decrypt_CBC(encryptedSource);
             encryptedLength = encryptedSource.Length;
             putDataToDataRow(encryptedSource.Length,Source.Length);
             long count = 0;
@@ -200,7 +199,6 @@ namespace DIP_Algorithm
             if (data.Length != PIXEL_DATA_SIZE)
                 throw new Exception("Too much data");
             this.Output.Output.SetPixel(x, y, System.Drawing.Color.FromArgb(data[0], data[1], data[2], data[3]));
-            Color color = this.Output.Output.GetPixel(x, y);
         }
 
 
