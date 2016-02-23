@@ -131,40 +131,62 @@ namespace DIP_Algorithm
                 
                 if (algorithmList.Text == "Caesar's Cipher Encryption")
                 {
-                    Stream stream = openFileDialog1.OpenFile();
-                    //Bitmap bitmap = new Bitmap(pictureBox1.Image);
-                    this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
-                    EncryptAndDecryptFunction(true);
+                    caesarscipher(); 
                 }
-                else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption") {
-                    Stream stream = openFileDialog1.OpenFile();
-                    if(keyTextBox.Text.Length > 0)
-                    {
-                        if (keyTextBox.Text.Length >= 8)
-                        {
-                            byte[] key;
-                            if (hexStringFlag.Checked)
-                                key = Encryption.GetBytesFromHexString(keyTextBox.Text);
-                            else
-                                key = Encryption.GetBytes(keyTextBox.Text);
-                            currentEncryption = new SHA256_Blowfish(key, stream);
-                            EncryptAndDecryptFunction(true);
-                        }
-                        else
-                            MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
-                    }
-                    else
-                    {
-                        hexStringFlag.Checked = true;
-                        currentEncryption = new SHA256_Blowfish(stream);
-                        EncryptAndDecryptFunction(true);
-                    }
-
+                else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption")
+                {
+                    blowFish();
+                }
+                else if (algorithmList.Text == "OSIAS Encryption")
+                {
+                    osiasEncryption();
                 }
                 
             }
             else
                 MessageBox.Show("Please choose a destination path.","Error:" );
+        }
+
+        private void osiasEncryption()
+        {
+            Stream stream = openFileDialog1.OpenFile();
+            this.currentEncryption = new OSIASEncryption(stream);
+            EncryptAndDecryptFunction(true);
+            OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)this.currentEncryption).Output;
+
+        }
+
+        private void caesarscipher()
+        {
+            Stream stream = openFileDialog1.OpenFile();
+            //Bitmap bitmap = new Bitmap(pictureBox1.Image);
+            this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
+            EncryptAndDecryptFunction(true);
+        }
+        private void blowFish()
+        {
+            Stream stream = openFileDialog1.OpenFile();
+            if (keyTextBox.Text.Length > 0)
+            {
+                if (keyTextBox.Text.Length >= 8)
+                {
+                    byte[] key;
+                    if (hexStringFlag.Checked)
+                        key = Encryption.GetBytesFromHexString(keyTextBox.Text);
+                    else
+                        key = Encryption.GetBytes(keyTextBox.Text);
+                    currentEncryption = new SHA256_Blowfish(key, stream);
+                    EncryptAndDecryptFunction(true);
+                }
+                else
+                    MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
+            }
+            else
+            {
+                hexStringFlag.Checked = true;
+                currentEncryption = new SHA256_Blowfish(stream);
+                EncryptAndDecryptFunction(true);
+            }
         }
 
         private void openButtonDecryption_Click(object sender, EventArgs e)

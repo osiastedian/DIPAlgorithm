@@ -316,7 +316,8 @@
             this.algorithmList.FormattingEnabled = true;
             this.algorithmList.Items.AddRange(new object[] {
             "Caesar\'s Cipher Encryption",
-            "SHA-265 Key with Blowfish Encryption"});
+            "SHA-265 Key with Blowfish Encryption",
+            "OSIAS Encryption"});
             this.algorithmList.Location = new System.Drawing.Point(111, 19);
             this.algorithmList.Name = "algorithmList";
             this.algorithmList.Size = new System.Drawing.Size(279, 21);
