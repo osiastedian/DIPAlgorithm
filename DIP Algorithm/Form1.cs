@@ -77,38 +77,45 @@ namespace DIP_Algorithm
                 else
                     encryptionThread = new Thread(new ThreadStart(currentEncryption.applyDecryption));
                 encryptionThread.Start();
-                progressThread = new Thread(new ThreadStart(this.runProgressListener));
-                
+                progressThread = new Thread(new ThreadStart(runProgressListener));
                 progressThread.Start();
             }
         }
 
+        private void normalPostEncryption() {
+            pictureBox1.Image = currentEncryption.Output.Output;
+            output = currentEncryption.Output;
+            if (currentOperation == OPERATION_ENCRYPTION)
+                output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0, 8) + ".bmp");
+            keyTextBox.Text = output.Key;
+            progressBar1.Value = 100;
+            timer.Stop();
+            MessageBox.Show("Finished " + currentOperation + "Time:" + timeToString(timerTicks));
+            timerTicks = 0;
+            currentOperation = null;
+        }
+        private void normalDuringEncryption()
+        {
+            progressBar1.Value = (int)(currentEncryption.getPercentage() * 100);
+        }
+        private void normalPreEncryption()
+        {
+            timer.Start();
+        }
+        public delegate void PreEncryption();
+        public delegate void PostEncryption();
+        public delegate void DuringEncryption();
+        public PostEncryption postEncrtypion;
+        public DuringEncryption duringEncryption;
+        public PreEncryption preEncryption;
         public void runProgressListener() {
-            this.Invoke((MethodInvoker)delegate {
-                timer.Start();
-            });
-
+            this.Invoke(preEncryption);
             while (encryptionThread.IsAlive)
             {
-                this.Invoke((MethodInvoker)delegate {
-                    progressBar1.Value = (int)(currentEncryption.getPercentage() * 100);
-                });
+                this.Invoke(duringEncryption);
             }
-
-
-            this.Invoke((MethodInvoker)delegate {
-                // FINISHED
-                pictureBox1.Image = currentEncryption.Output.Output;
-                output = currentEncryption.Output;
-                if(currentOperation == OPERATION_ENCRYPTION)
-                    output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0,8) + ".bmp");
-                keyTextBox.Text = output.Key;
-                progressBar1.Value = 100;
-                timer.Stop();
-                MessageBox.Show("Finished "+ currentOperation+ "Time:"+ timeToString(timerTicks));
-                timerTicks = 0;
-                currentOperation = null;
-            });
+            
+            this.Invoke(postEncrtypion);
         }
 
         private string timeToString(double ticks)
@@ -147,10 +154,27 @@ namespace DIP_Algorithm
                 MessageBox.Show("Please choose a destination path.","Error:" );
         }
 
+        private void OsiasPostEncryption()
+        {
+            OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)currentEncryption).Output;
+            pictureBox1.Image = output.Output;
+            progressBar1.Value = 100;                   
+            timer.Stop();
+            string destFolder = this.destinationFileList.Text;
+            output.Key.Save(destFolder + "\\Key.bmp");
+            output.Output.Save(destFolder + "\\Output.bmp");
+            MessageBox.Show("Finished " + currentOperation + "Time:" + timeToString(timerTicks));
+            timerTicks = 0;
+            currentOperation = null;
+        }
+
         private void osiasEncryption()
         {
             Stream stream = openFileDialog1.OpenFile();
             this.currentEncryption = new OSIASEncryption(stream);
+            this.preEncryption = normalPreEncryption;
+            this.duringEncryption = normalDuringEncryption;
+            this.postEncrtypion = OsiasPostEncryption;
             EncryptAndDecryptFunction(true);
             OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)this.currentEncryption).Output;
 
@@ -161,6 +185,9 @@ namespace DIP_Algorithm
             Stream stream = openFileDialog1.OpenFile();
             //Bitmap bitmap = new Bitmap(pictureBox1.Image);
             this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
+            this.preEncryption = normalPreEncryption;
+            this.duringEncryption = normalDuringEncryption;
+            this.postEncrtypion = normalPostEncryption;
             EncryptAndDecryptFunction(true);
         }
         private void blowFish()
@@ -176,6 +203,9 @@ namespace DIP_Algorithm
                     else
                         key = Encryption.GetBytes(keyTextBox.Text);
                     currentEncryption = new SHA256_Blowfish(key, stream);
+                    this.preEncryption = normalPreEncryption;
+                    this.duringEncryption = normalDuringEncryption;
+                    this.postEncrtypion = normalPostEncryption;
                     EncryptAndDecryptFunction(true);
                 }
                 else

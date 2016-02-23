@@ -11,7 +11,7 @@ namespace DIP_Algorithm
     {
         public  const int KEY_WIDTH = 16;
         public  const int KEY_HEIGHT = 16;
-        private Dictionary<int, Point> keyMap;
+        private Dictionary<int, MyPoint> keyMap;
         private Stream source;
         private Bitmap keyBitmap;
         private Bitmap dataBitmap;
@@ -25,7 +25,7 @@ namespace DIP_Algorithm
         public OSIASEncryption(Stream source) 
         {
             this.source = source;
-            keyMap = new Dictionary<int, Point>(byte.MaxValue);
+            keyMap = new Dictionary<int, MyPoint>(byte.MaxValue);
 
         }
 
@@ -50,8 +50,10 @@ namespace DIP_Algorithm
         public override void applyEncryption()
         {
             keyBitmap = new Bitmap(KEY_WIDTH, KEY_HEIGHT);
-            int size = (int)Math.Sqrt(source.Length / 2) + 1;
+            int size = (int)Math.Sqrt(source.Length / 4) + 1;
             dataBitmap = new Bitmap(size, size);
+            this.random = new Random();
+            
             if (source!=null)
             {
                 byte[] buffer = new byte[4];
@@ -61,35 +63,62 @@ namespace DIP_Algorithm
                     source.Read(buffer, 0, buffer.Length);
                     for(int i=0;i< limit;i++)
                         buffer[i] = generatePosition(buffer[i]);
-                    dataBitmap.SetPixel(data_X, data_Y, Color.FromArgb(buffer[0], buffer[1], buffer[2], buffer[3]));
+                    dataBitmap.SetPixel(data_X++, data_Y, Color.FromArgb(buffer[0], buffer[1], buffer[2], buffer[3]));
                     if (source.Position >= source.Length)
                         break;
+                    if (data_X >= dataBitmap.Width) {
+                        data_Y++;
+                        data_X = 0;
+                    }
                     Percentage = source.Position / source.Length;
                 }
             }
+            runChecker();
+            this.Output = new EncryptionMeta(dataBitmap, keyBitmap);
 
         }
+        Random random;
         private byte generatePosition(int data)
         {
             byte result = 0;
-            Point p = new Point(-1,-1);
+            MyPoint p = new MyPoint(-1,-1);
             if (keyMap.ContainsKey(data))
             {
                 p = keyMap[data];
             }
             if(p.X == -1 || p.Y == -1)
             {
-                p = new Point(key_X++, key_Y);
-                if(key_X >=keyBitmap.Width)
+                bool operation = true;
+                do
+                {
+                    p.X = random.Next(KEY_WIDTH);
+                    p.Y = random.Next(KEY_HEIGHT);
+                    operation = keyMap.ContainsValue(p);
+                } while (operation);
+
+                if (key_X >=keyBitmap.Width)
                 {
                     key_X = 0;
                     key_Y++;
                 }
                 keyMap[data] = p;
             }
-            keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, byte.MaxValue, byte.MaxValue, byte.MaxValue));
+            keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, byte.MaxValue/2, byte.MaxValue/2, byte.MaxValue/2));
             result = (byte)(p.X * 16 + p.Y);
             return result;
+        }
+
+        private void runChecker() {
+            MyPoint temp = new MyPoint(0, 0);
+            for (int x = 0; x < 16; x++)
+                for (int y = 0; y < 16; y++)
+                {
+                    temp.X = x;
+                    temp.Y = y;
+                    if (!keyMap.ContainsValue(temp)) {
+                        break;
+                    }
+                }
         }
 
         private void putData(long sourceLength)
@@ -115,16 +144,31 @@ namespace DIP_Algorithm
 
         
 
-        private class LocationValue {
+        private class MyPoint {
             public int X { get; set; }
             public int Y { get; set; }
-            public byte Occurence { get; set; }
+            //public byte Occurence { get; set; }
 
-            public LocationValue(int x, int y)
+            public MyPoint(int x, int y)
             {
                 X = x;
                 Y = y;
-                Occurence = 0;
+               // Occurence = 0;
+            }
+            public override bool Equals(object obj)
+            {
+                if (obj is MyPoint)
+                {
+                    MyPoint param = (MyPoint)obj;
+                    if (param.X == this.X && param.Y == this.Y)
+                        return true;
+                    else return false;
+                }
+                else return false;
+            }
+            public override string ToString()
+            {
+                return "{ X:" + this.X + " Y:" + this.Y + "}";
             }
 
         }
