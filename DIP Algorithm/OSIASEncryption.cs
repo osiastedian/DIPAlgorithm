@@ -11,15 +11,20 @@ namespace DIP_Algorithm
     {
         public  const int KEY_WIDTH = 16;
         public  const int KEY_HEIGHT = 16;
+        public  const int KEY_DATA_ROW_HEIGHT = 1;
+        private readonly short PIXEL_DATA_SIZE = 4;
+
         private Dictionary<int, MyPoint> keyMap;
         private Stream source;
         private Bitmap keyBitmap;
         private Bitmap dataBitmap;
-        private long x;
-        private long y;
-        private readonly short PIXEL_DATA_SIZE = 4;
+        int key_X = 0;
+        int key_Y = 0;
+        int data_X = 0;
+        int data_Y = 0;
         public float Percentage { get; set; }
         public new EncryptionMeta Output { get; set; }
+        Random random;
 
 
         public OSIASEncryption(Stream source) 
@@ -34,22 +39,11 @@ namespace DIP_Algorithm
             
             
         }
-
-       
-
-        private static Bitmap generateKeyBitmap(Dictionary<int,Point> map)
-        {
-            Bitmap b = null; 
-
-            return b;
-        }
-        int key_X = 0;
-        int key_Y = 0;
-        int data_X = 0;
-        int data_Y = 0;
+        
         public override void applyEncryption()
         {
-            keyBitmap = new Bitmap(KEY_WIDTH, KEY_HEIGHT);
+            keyBitmap = new Bitmap(KEY_WIDTH, KEY_HEIGHT + KEY_DATA_ROW_HEIGHT);
+            putDataRow(source.Length, ref keyBitmap);
             int size = (int)Math.Sqrt(source.Length / 4) + 1;
             dataBitmap = new Bitmap(size, size);
             this.random = new Random();
@@ -66,6 +60,8 @@ namespace DIP_Algorithm
                     dataBitmap.SetPixel(data_X++, data_Y, Color.FromArgb(buffer[0], buffer[1], buffer[2], buffer[3]));
                     if (source.Position >= source.Length)
                         break;
+                    if (source.Position >= source.Length -10)
+                        continue;
                     if (data_X >= dataBitmap.Width) {
                         data_Y++;
                         data_X = 0;
@@ -77,7 +73,7 @@ namespace DIP_Algorithm
             this.Output = new EncryptionMeta(dataBitmap, keyBitmap);
 
         }
-        Random random;
+        
         private byte generatePosition(int data)
         {
             byte result = 0;
@@ -91,8 +87,8 @@ namespace DIP_Algorithm
                 bool operation = true;
                 do
                 {
-                    p.X = random.Next(KEY_WIDTH);
-                    p.Y = random.Next(KEY_HEIGHT);
+                    p.X = random.Next(keyBitmap.Width);
+                    p.Y = random.Next(KEY_DATA_ROW_HEIGHT,keyBitmap.Height);
                     operation = keyMap.ContainsValue(p);
                 } while (operation);
 
@@ -102,8 +98,8 @@ namespace DIP_Algorithm
                     key_Y++;
                 }
                 keyMap[data] = p;
+                keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, random.Next()%byte.MaxValue, random.Next() % byte.MaxValue, random.Next() % byte.MaxValue));
             }
-            keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, byte.MaxValue/2, byte.MaxValue/2, byte.MaxValue/2));
             result = (byte)(p.X * 16 + p.Y);
             return result;
         }
@@ -121,10 +117,30 @@ namespace DIP_Algorithm
                 }
         }
 
-        private void putData(long sourceLength)
+        private void putDataRow(long sourceLength,ref Bitmap keyMap)
         {
-            byte[] sourceBytes = BitConverter.GetBytes(sourceLength);
-            
+            byte[] sourceLengthBytes = BitConverter.GetBytes(sourceLength);
+            for(int i=0;i<sourceLengthBytes.Length/4;i++)
+            {
+                byte alpha  = sourceLengthBytes[i * 4 + 0];
+                byte red    = sourceLengthBytes[i * 4 + 1];
+                byte green  = sourceLengthBytes[i * 4 + 2];
+                byte blue   = sourceLengthBytes[i * 4 + 3];
+                keyMap.SetPixel(key_X++, 0, Color.FromArgb(alpha, red, green, blue));
+            }
+        }
+
+        private void retrieveDataRow(ref Bitmap keyMap)
+        {
+            byte[] sourceLengthBytes = BitConverter.GetBytes((long)0);
+            for (int i = 0; i < sourceLengthBytes.Length / 4; i++)
+            {
+                Color c = keyMap.GetPixel(key_X++, 0);
+                sourceLengthBytes[i * 4 + 0] = c.A;
+                sourceLengthBytes[i * 4 + 1] = c.R;
+                sourceLengthBytes[i * 4 + 2] = c.G;
+                sourceLengthBytes[i * 4 + 3] = c.B;
+            }
             
         }
         private void decryptPixelData(long sourceLength)

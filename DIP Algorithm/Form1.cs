@@ -9,6 +9,11 @@ namespace DIP_Algorithm
 {
     public partial class Form1 : Form
     {
+
+        public const int CAESARS_CIPHER = 0;
+        public const int BLOWFISH = 1;
+        public const int OSIAS_ENCRYPTION = 2;
+
         Encryption currentEncryption;
         EncryptionMeta output;
         Thread encryptionThread;
@@ -138,15 +143,19 @@ namespace DIP_Algorithm
                 
                 if (algorithmList.Text == "Caesar's Cipher Encryption")
                 {
-                    caesarscipher(); 
+                    if(caesarscipher())
+                        EncryptAndDecryptFunction(true);
+
                 }
                 else if (algorithmList.Text == "SHA-265 Key with Blowfish Encryption")
                 {
-                    blowFish();
+                    if(blowFish())
+                        EncryptAndDecryptFunction(true);
                 }
                 else if (algorithmList.Text == "OSIAS Encryption")
                 {
                     osiasEncryption();
+                    EncryptAndDecryptFunction(true);
                 }
                 
             }
@@ -168,30 +177,34 @@ namespace DIP_Algorithm
             currentOperation = null;
         }
 
-        private void osiasEncryption()
+        private bool osiasEncryption()
         {
+            bool ok = false;
             Stream stream = openFileDialog1.OpenFile();
             this.currentEncryption = new OSIASEncryption(stream);
             this.preEncryption = normalPreEncryption;
             this.duringEncryption = normalDuringEncryption;
             this.postEncrtypion = OsiasPostEncryption;
-            EncryptAndDecryptFunction(true);
-            OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)this.currentEncryption).Output;
+            ok = true;
+            return ok;
+            
 
         }
 
-        private void caesarscipher()
+        private bool caesarscipher()
         {
+            bool ok = false;
             Stream stream = openFileDialog1.OpenFile();
-            //Bitmap bitmap = new Bitmap(pictureBox1.Image);
             this.currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100), keyTextBox.Text);
             this.preEncryption = normalPreEncryption;
             this.duringEncryption = normalDuringEncryption;
             this.postEncrtypion = normalPostEncryption;
-            EncryptAndDecryptFunction(true);
+            ok = true;
+            return ok;
         }
-        private void blowFish()
+        private bool blowFish()
         {
+            bool ok = false;
             Stream stream = openFileDialog1.OpenFile();
             if (keyTextBox.Text.Length > 0)
             {
@@ -206,7 +219,7 @@ namespace DIP_Algorithm
                     this.preEncryption = normalPreEncryption;
                     this.duringEncryption = normalDuringEncryption;
                     this.postEncrtypion = normalPostEncryption;
-                    EncryptAndDecryptFunction(true);
+                    ok = true;
                 }
                 else
                     MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
@@ -217,6 +230,7 @@ namespace DIP_Algorithm
                 currentEncryption = new SHA256_Blowfish(stream);
                 EncryptAndDecryptFunction(true);
             }
+            return ok;
         }
 
         private void openButtonDecryption_Click(object sender, EventArgs e)
@@ -245,51 +259,66 @@ namespace DIP_Algorithm
         {
             Stream stream = openFileDialog1.OpenFile();
             currentOperation = OPERATION_DECRYPTION;
-            if (algorithmList.SelectedIndex == 0) { 
-                try { 
-                currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
-                    ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
-                EncryptionMeta output = new EncryptionMeta();
-                if (keyTextBox.Text.Length > 0)
-                {
-                    output.Key = keyTextBox.Text;
-                    output.Output = new Bitmap(stream);
-                    stream.Close();
-                    this.currentEncryption.Output = output;
-                     //this.currentEncryption.applyDecryption();
-                     EncryptAndDecryptFunction(false);
-                }
-                else
-                { 
-                    MessageBox.Show("Please input key.", "Error");
-                    keyTextBox.Focus();
-                }
-                }catch(FileNotFoundException )
-                {
-                    MessageBox.Show("No file selected", "Error");
-                }
-            }
-            else if (algorithmList.SelectedIndex == 1)
+            switch (algorithmList.SelectedIndex)
             {
-                byte[] key;
-                if (hexStringFlag.Checked)
-                    key = Encryption.GetBytesFromHexString(keyTextBox.Text);
-                else
-                    key = Encryption.GetBytes(keyTextBox.Text);
-                currentEncryption = new SHA256_Blowfish(key, null);
-                //currentEncryption = new SHA265_Blowfish(Encryption.GetBytes(keyTextBox.Text), null);
-                ((SHA256_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
-                EncryptionMeta output = new EncryptionMeta();
-                if (keyTextBox.Text.Length > 0)
-                {
-                    output.Key = keyTextBox.Text;
-                    output.Output = new Bitmap(stream);
-                    Color color = output.Output.GetPixel(0, 0);
-                    stream.Close();
-                    currentEncryption.Output = output;
-                    //currentEncryption.applyDecryption();
-                    EncryptAndDecryptFunction(false);
-                }
+                case CAESARS_CIPHER:
+                                    { 
+                                        this.caesarscipher();
+                                        try
+                                        {
+                                            currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
+                                            ((CaesarsCipherEncryption)currentEncryption).DestinationFolder = destinationFileList.Text;
+                                            EncryptionMeta output = new EncryptionMeta();
+                                            if (keyTextBox.Text.Length > 0)
+                                            {
+                                                output.Key = keyTextBox.Text;
+                                                output.Output = new Bitmap(stream);
+                                                stream.Close();
+                                                this.currentEncryption.Output = output;
+                                                EncryptAndDecryptFunction(false);
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Please input key.", "Error");
+                                                keyTextBox.Focus();
+                                            }
+                                        }
+                                        catch (FileNotFoundException)
+                                        {
+                                            MessageBox.Show("No file selected", "Error");
+                                        }
+                                    }
+                                    break;
+                case BLOWFISH:
+                                {
+                                    byte[] key;
+                                    if (hexStringFlag.Checked)
+                                        key = Encryption.GetBytesFromHexString(keyTextBox.Text);
+                                    else
+                                        key = Encryption.GetBytes(keyTextBox.Text);
+                                    currentEncryption = new SHA256_Blowfish(key, null);
+                                    ((SHA256_Blowfish)currentEncryption).DestinationFolder = destinationFileList.Text;
+                                    EncryptionMeta output = new EncryptionMeta();
+                                    if (keyTextBox.Text.Length > 0)
+                                    {
+                                        output.Key = keyTextBox.Text;
+                                        output.Output = new Bitmap(stream);
+                                        Color color = output.Output.GetPixel(0, 0);
+                                        stream.Close();
+                                        currentEncryption.Output = output;
+                                        EncryptAndDecryptFunction(false);
+                                    }
+
+                                }
+                                break;
+                case OSIAS_ENCRYPTION:
+                                {
+                                   
+                                    
+
+
+                                }
+                                break;
 
             }
         }
@@ -308,6 +337,32 @@ namespace DIP_Algorithm
         private void algorithmList_SelectedIndexChanged(object sender, EventArgs e)
         {
             keyTextBox_TextChanged(sender, e);
+            if (algorithmList.SelectedIndex == OSIAS_ENCRYPTION)
+            {
+                keyTextBox.Width = openFileList.Location.X + openFileList.Width - keyTextBox.Location.X;
+                keyBitmapOpenButton.Visible = true;
+                label5.Visible = false;
+                keyLengthLabel.Visible = false;
+                hexStringFlag.Visible = false;
+            }
+            else {
+                keyTextBox.Width = algorithmList.Width;
+                keyBitmapOpenButton.Visible = false;
+                label5.Visible = true;
+                keyLengthLabel.Visible = true;
+                hexStringFlag.Visible = true;
+            }
+                
+        }
+
+        private void keyBitmapOpenButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+            if (File.Exists(openFileDialog1.FileName))
+            {
+                keyTextBox.Text = openFileDialog1.FileName;
+                openFileDialog1.FileName = "";
+            }
         }
     }
 

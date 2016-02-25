@@ -62,6 +62,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
+            this.keyBitmapOpenButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -240,6 +241,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.keyBitmapOpenButton);
             this.groupBox2.Controls.Add(this.hexStringFlag);
             this.groupBox2.Controls.Add(this.keyLengthLabel);
             this.groupBox2.Controls.Add(this.label5);
@@ -288,7 +290,7 @@
             // 
             this.keyTextBox.Location = new System.Drawing.Point(111, 49);
             this.keyTextBox.Name = "keyTextBox";
-            this.keyTextBox.Size = new System.Drawing.Size(279, 20);
+            this.keyTextBox.Size = new System.Drawing.Size(198, 20);
             this.keyTextBox.TabIndex = 7;
             this.keyTextBox.TextChanged += new System.EventHandler(this.keyTextBox_TextChanged);
             // 
@@ -375,6 +377,16 @@
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
             // 
+            // keyBitmapOpenButton
+            // 
+            this.keyBitmapOpenButton.Location = new System.Drawing.Point(315, 47);
+            this.keyBitmapOpenButton.Name = "keyBitmapOpenButton";
+            this.keyBitmapOpenButton.Size = new System.Drawing.Size(75, 23);
+            this.keyBitmapOpenButton.TabIndex = 29;
+            this.keyBitmapOpenButton.Text = "Open";
+            this.keyBitmapOpenButton.UseVisualStyleBackColor = true;
+            this.keyBitmapOpenButton.Click += new System.EventHandler(this.keyBitmapOpenButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,6 +452,7 @@
         private System.Windows.Forms.Label keyLengthLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox hexStringFlag;
+        private System.Windows.Forms.Button keyBitmapOpenButton;
     }
 }
 
