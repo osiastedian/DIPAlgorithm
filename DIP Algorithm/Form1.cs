@@ -110,9 +110,9 @@ namespace DIP_Algorithm
         public delegate void PreEncryption();
         public delegate void PostEncryption();
         public delegate void DuringEncryption();
-        public PostEncryption postEncrtypion;
-        public DuringEncryption duringEncryption;
         public PreEncryption preEncryption;
+        public DuringEncryption duringEncryption;
+        public PostEncryption postEncrtypion;
         public void runProgressListener() {
             this.Invoke(preEncryption);
             while (encryptionThread.IsAlive)
@@ -172,6 +172,22 @@ namespace DIP_Algorithm
             string destFolder = this.destinationFileList.Text;
             output.Key.Save(destFolder + "\\Key.bmp");
             output.Output.Save(destFolder + "\\Output.bmp");
+            MessageBox.Show("Finished " + currentOperation + "Time:" + timeToString(timerTicks));
+            timerTicks = 0;
+            currentOperation = null;
+        }
+
+        private void OsiasPostDecryption()
+        {
+            OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)currentEncryption).Output;
+            progressBar1.Value = 100;
+            timer.Stop();
+            string destFolder = this.destinationFileList.Text;
+            if (currentOperation == OPERATION_ENCRYPTION)
+            { 
+                output.Key.Save(destFolder + "\\Key.bmp");
+                output.Output.Save(destFolder + "\\Output.bmp");
+            }
             MessageBox.Show("Finished " + currentOperation + "Time:" + timeToString(timerTicks));
             timerTicks = 0;
             currentOperation = null;
@@ -257,13 +273,12 @@ namespace DIP_Algorithm
 
         private void DecryptButton_Click(object sender, EventArgs e)
         {
-            Stream stream = openFileDialog1.OpenFile();
             currentOperation = OPERATION_DECRYPTION;
             switch (algorithmList.SelectedIndex)
             {
                 case CAESARS_CIPHER:
-                                    { 
-                                        this.caesarscipher();
+                                    {
+                                        Stream stream = openFileDialog1.OpenFile();
                                         try
                                         {
                                             currentEncryption = new CaesarsCipherEncryption(stream, new Bitmap(100, 100));
@@ -291,6 +306,7 @@ namespace DIP_Algorithm
                                     break;
                 case BLOWFISH:
                                 {
+                                    Stream stream = openFileDialog1.OpenFile();
                                     byte[] key;
                                     if (hexStringFlag.Checked)
                                         key = Encryption.GetBytesFromHexString(keyTextBox.Text);
@@ -312,13 +328,23 @@ namespace DIP_Algorithm
                                 }
                                 break;
                 case OSIAS_ENCRYPTION:
-                                {
-                                   
-                                    
+                    {
+                        if (keyTextBox.Text.Length > 0)
+                        {
+                            currentEncryption = new OSIASEncryption(null);
+                            OSIASEncryption enc = (OSIASEncryption)currentEncryption;
+                            enc.DataBitmap = new Bitmap(openFileDialog1.FileName);
+                            enc.KeyBitMap = new Bitmap(openFileDialog2.FileName);
+                            enc.Source = new FileStream(destinationFileList.Text + "\\output", FileMode.OpenOrCreate);
+                            this.preEncryption = normalPreEncryption;
+                            this.duringEncryption = normalDuringEncryption;
+                            this.postEncrtypion = OsiasPostDecryption;
+                            EncryptAndDecryptFunction(false);
+                        }
 
 
-                                }
-                                break;
+                    }
+                    break;
 
             }
         }
@@ -357,12 +383,32 @@ namespace DIP_Algorithm
 
         private void keyBitmapOpenButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName))
+            openFileDialog2.ShowDialog();
+            if (File.Exists(openFileDialog2.FileName))
             {
-                keyTextBox.Text = openFileDialog1.FileName;
-                openFileDialog1.FileName = "";
+                keyTextBox.Text = openFileDialog2.FileName;
+                
             }
+        }
+
+
+        private void test(object sender, EventArgs e) {
+            Stream stream1 = openFileDialog1.OpenFile();
+            Stream stream2 = openFileDialog2.OpenFile();
+            int data1;
+            int data2;
+            while (true)
+            {
+                data1 = stream1.ReadByte();
+                data2 = stream2.ReadByte();
+
+                if (data1 != data2)
+                    Console.WriteLine(stream1.Position);
+                if (stream1.Position >= stream1.Length)
+                    break;
+            }
+            stream1.Close();
+            stream2.Close();
         }
     }
 

@@ -50,6 +50,7 @@
             this.openDialogButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.keyBitmapOpenButton = new System.Windows.Forms.Button();
             this.hexStringFlag = new System.Windows.Forms.CheckBox();
             this.keyLengthLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -62,7 +63,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.EncTab = new System.Windows.Forms.TabControl();
-            this.keyBitmapOpenButton = new System.Windows.Forms.Button();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.testButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.EncryptionTab.SuspendLayout();
@@ -241,6 +243,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.testButton);
             this.groupBox2.Controls.Add(this.keyBitmapOpenButton);
             this.groupBox2.Controls.Add(this.hexStringFlag);
             this.groupBox2.Controls.Add(this.keyLengthLabel);
@@ -257,6 +260,16 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Encryption Settings";
+            // 
+            // keyBitmapOpenButton
+            // 
+            this.keyBitmapOpenButton.Location = new System.Drawing.Point(315, 47);
+            this.keyBitmapOpenButton.Name = "keyBitmapOpenButton";
+            this.keyBitmapOpenButton.Size = new System.Drawing.Size(75, 23);
+            this.keyBitmapOpenButton.TabIndex = 29;
+            this.keyBitmapOpenButton.Text = "Open";
+            this.keyBitmapOpenButton.UseVisualStyleBackColor = true;
+            this.keyBitmapOpenButton.Click += new System.EventHandler(this.keyBitmapOpenButton_Click);
             // 
             // hexStringFlag
             // 
@@ -377,15 +390,19 @@
             this.EncTab.Size = new System.Drawing.Size(1037, 541);
             this.EncTab.TabIndex = 6;
             // 
-            // keyBitmapOpenButton
+            // openFileDialog2
             // 
-            this.keyBitmapOpenButton.Location = new System.Drawing.Point(315, 47);
-            this.keyBitmapOpenButton.Name = "keyBitmapOpenButton";
-            this.keyBitmapOpenButton.Size = new System.Drawing.Size(75, 23);
-            this.keyBitmapOpenButton.TabIndex = 29;
-            this.keyBitmapOpenButton.Text = "Open";
-            this.keyBitmapOpenButton.UseVisualStyleBackColor = true;
-            this.keyBitmapOpenButton.Click += new System.EventHandler(this.keyBitmapOpenButton_Click);
+            this.openFileDialog2.FileName = "openFileDialog2";
+            // 
+            // testButton
+            // 
+            this.testButton.Location = new System.Drawing.Point(6, 101);
+            this.testButton.Name = "testButton";
+            this.testButton.Size = new System.Drawing.Size(75, 23);
+            this.testButton.TabIndex = 30;
+            this.testButton.Text = "button2";
+            this.testButton.UseVisualStyleBackColor = true;
+            this.testButton.Click += new System.EventHandler(this.test);
             // 
             // Form1
             // 
@@ -453,6 +470,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox hexStringFlag;
         private System.Windows.Forms.Button keyBitmapOpenButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.Button testButton;
     }
 }
 

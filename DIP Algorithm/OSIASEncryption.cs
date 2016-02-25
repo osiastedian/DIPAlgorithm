@@ -14,10 +14,38 @@ namespace DIP_Algorithm
         public  const int KEY_DATA_ROW_HEIGHT = 1;
         private readonly short PIXEL_DATA_SIZE = 4;
 
-        private Dictionary<int, MyPoint> keyMap;
+        private Dictionary<int, MyPoint> encryptionKeyMap;
+        private Dictionary<MyPoint,byte > decryptionKeyMap;
+        public string destinationFolder = null;
         private Stream source;
-        private Bitmap keyBitmap;
+        private Bitmap keyBitmap; 
         private Bitmap dataBitmap;
+
+        private MyPoint decryptionPointTemp;
+        public new Stream Source { get { return this.source; } set { this.source = value; } }
+
+        public Bitmap KeyBitMap {
+            get
+            {
+                return this.keyBitmap;
+            }
+            set
+            {
+                this.keyBitmap = value;
+            }
+        }
+        public Bitmap DataBitmap
+        {
+            get
+            {
+                return this.dataBitmap;
+            }
+            set
+            {
+                this.dataBitmap = value;
+            }
+        }
+
         int key_X = 0;
         int key_Y = 0;
         int data_X = 0;
@@ -30,18 +58,75 @@ namespace DIP_Algorithm
         public OSIASEncryption(Stream source) 
         {
             this.source = source;
-            keyMap = new Dictionary<int, MyPoint>(byte.MaxValue);
-
         }
 
         public override void applyDecryption()
         {
-            
-            
+            if(keyBitmap!=null && dataBitmap!=null && source!=null)
+            {
+                decryptionKeyMap = new Dictionary<MyPoint, byte>(256);
+                long sourceLength = retrieveDataRow(ref keyBitmap);
+                byte[] buffer = new byte[PIXEL_DATA_SIZE];
+                while (true)
+                {
+                    if (source.Length >= sourceLength)
+                        break;
+                    Color c = dataBitmap.GetPixel(data_X++, data_Y);
+                    if (data_X >= dataBitmap.Width)
+                    {
+                        data_X = 0;
+                        data_Y++;
+                    }
+                    buffer[0] = getDataFromKey(c.A);
+                    buffer[1] = getDataFromKey(c.R);
+                    buffer[2] = getDataFromKey(c.G);
+                    buffer[3] = getDataFromKey(c.B);
+                    source.Write(buffer, 0, (int)Math.Min(PIXEL_DATA_SIZE, sourceLength - source.Length));
+                }
+                source.Close();
+
+            }            
         }
-        
+
+        private byte getDataFromKey(byte bytePosition)
+        {
+            int number = (int)bytePosition;
+            //if(decryptionPointTemp==null)
+                decryptionPointTemp = new MyPoint(0,0);
+            decryptionPointTemp.X = number / KEY_WIDTH;
+            decryptionPointTemp.Y = number % KEY_HEIGHT;
+            byte data = 0;
+            if (!decryptionKeyMap.ContainsKey(decryptionPointTemp))
+            {
+                data = keyBitmap.GetPixel(decryptionPointTemp.X, decryptionPointTemp.Y).A;
+                decryptionKeyMap[new MyPoint(decryptionPointTemp.X, decryptionPointTemp.Y)] = data;
+            }
+            
+            else
+                Console.Write("Exist");
+            if (decryptionKeyMap.Count == 256)
+            {
+                if (decryptionKeyMap.Count == 256)
+                {
+                    byte[] test = new byte[256];
+
+                    foreach (int obj in decryptionKeyMap.Values)
+                    {
+                        test[obj]++;
+                    }
+                    Console.Write("");
+
+                }
+                Console.Write("");
+
+            }
+            data = decryptionKeyMap[decryptionPointTemp];
+            return data;
+        }
+
         public override void applyEncryption()
         {
+            encryptionKeyMap = new Dictionary<int, MyPoint>(256);
             keyBitmap = new Bitmap(KEY_WIDTH, KEY_HEIGHT + KEY_DATA_ROW_HEIGHT);
             putDataRow(source.Length, ref keyBitmap);
             int size = (int)Math.Sqrt(source.Length / 4) + 1;
@@ -55,17 +140,18 @@ namespace DIP_Algorithm
                 {
                     int limit = Math.Min((int)(source.Length - source.Position), 4);
                     source.Read(buffer, 0, buffer.Length);
-                    for(int i=0;i< limit;i++)
+                    for(int i=0;i< limit; i++) { 
                         buffer[i] = generatePosition(buffer[i]);
+                        Console.WriteLine(buffer[i]);
+                    }
                     dataBitmap.SetPixel(data_X++, data_Y, Color.FromArgb(buffer[0], buffer[1], buffer[2], buffer[3]));
-                    if (source.Position >= source.Length)
-                        break;
-                    if (source.Position >= source.Length -10)
-                        continue;
-                    if (data_X >= dataBitmap.Width) {
+                    if (data_X >= dataBitmap.Width)
+                    {
                         data_Y++;
                         data_X = 0;
                     }
+                    if (source.Position >= source.Length)
+                        break;
                     Percentage = source.Position / source.Length;
                 }
             }
@@ -78,18 +164,18 @@ namespace DIP_Algorithm
         {
             byte result = 0;
             MyPoint p = new MyPoint(-1,-1);
-            if (keyMap.ContainsKey(data))
+            if (encryptionKeyMap.ContainsKey(data))
             {
-                p = keyMap[data];
+                p = encryptionKeyMap[data];
             }
             if(p.X == -1 || p.Y == -1)
             {
                 bool operation = true;
                 do
                 {
-                    p.X = random.Next(keyBitmap.Width);
-                    p.Y = random.Next(KEY_DATA_ROW_HEIGHT,keyBitmap.Height);
-                    operation = keyMap.ContainsValue(p);
+                    p.X = random.Next(KEY_WIDTH);
+                    p.Y = random.Next(KEY_HEIGHT);
+                    operation = encryptionKeyMap.ContainsValue(p);
                 } while (operation);
 
                 if (key_X >=keyBitmap.Width)
@@ -97,10 +183,31 @@ namespace DIP_Algorithm
                     key_X = 0;
                     key_Y++;
                 }
-                keyMap[data] = p;
+                encryptionKeyMap[data] = p;
                 keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, random.Next()%byte.MaxValue, random.Next() % byte.MaxValue, random.Next() % byte.MaxValue));
             }
+            if (encryptionKeyMap.Count == 256)
+            {
+                if (encryptionKeyMap.Count == 256)
+                {
+                    int[,] test = new int[16, 17];
+
+                    foreach (MyPoint obj in encryptionKeyMap.Values)
+                    {
+                        test[obj.X,obj.Y]++;
+                    }
+                    Console.Write("");
+
+                }
+                Console.Write("");
+
+            }
             result = (byte)(p.X * 16 + p.Y);
+            decryptionPointTemp = new MyPoint(0, 0);
+            decryptionPointTemp.X = result / KEY_WIDTH;
+            decryptionPointTemp.Y = result % KEY_HEIGHT;
+            if (!decryptionPointTemp.Equals(p))
+                Console.WriteLine("EQ ERROR");
             return result;
         }
 
@@ -111,7 +218,7 @@ namespace DIP_Algorithm
                 {
                     temp.X = x;
                     temp.Y = y;
-                    if (!keyMap.ContainsValue(temp)) {
+                    if (!encryptionKeyMap.ContainsValue(temp)) {
                         break;
                     }
                 }
@@ -126,22 +233,22 @@ namespace DIP_Algorithm
                 byte red    = sourceLengthBytes[i * 4 + 1];
                 byte green  = sourceLengthBytes[i * 4 + 2];
                 byte blue   = sourceLengthBytes[i * 4 + 3];
-                keyMap.SetPixel(key_X++, 0, Color.FromArgb(alpha, red, green, blue));
+                keyMap.SetPixel(key_X++, 16, Color.FromArgb(alpha, red, green, blue));
             }
         }
 
-        private void retrieveDataRow(ref Bitmap keyMap)
+        private long retrieveDataRow(ref Bitmap keyMap)
         {
             byte[] sourceLengthBytes = BitConverter.GetBytes((long)0);
             for (int i = 0; i < sourceLengthBytes.Length / 4; i++)
             {
-                Color c = keyMap.GetPixel(key_X++, 0);
+                Color c = keyMap.GetPixel(key_X++, 16);
                 sourceLengthBytes[i * 4 + 0] = c.A;
                 sourceLengthBytes[i * 4 + 1] = c.R;
                 sourceLengthBytes[i * 4 + 2] = c.G;
                 sourceLengthBytes[i * 4 + 3] = c.B;
             }
-            
+            return BitConverter.ToInt64(sourceLengthBytes, 0);
         }
         private void decryptPixelData(long sourceLength)
         {
@@ -173,7 +280,7 @@ namespace DIP_Algorithm
             }
             public override bool Equals(object obj)
             {
-                if (obj is MyPoint)
+                if (obj is MyPoint && obj!=null)
                 {
                     MyPoint param = (MyPoint)obj;
                     if (param.X == this.X && param.Y == this.Y)
@@ -186,6 +293,11 @@ namespace DIP_Algorithm
             {
                 return "{ X:" + this.X + " Y:" + this.Y + "}";
             }
+            public override int GetHashCode()
+            {
+                return X * 16 + Y;
+            }
+
 
         }
 
