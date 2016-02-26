@@ -10,7 +10,7 @@ namespace DIP_Algorithm
     {
         public static int DEFAUL_KEY_LENGTH = 8;
         public double Percentage { get; set; }
-        public static int BufferLength = 3;
+        public static int bufferLength = 3;
         public long i = 0;
         public static List<byte> encryptAllBytes = new List<byte>();
         private Stream fileOutput;
@@ -68,7 +68,7 @@ namespace DIP_Algorithm
             int x = 0;
             int y = 0;
             int[] colorsARGB = new int[4];
-            byte[] buffer = new byte[BufferLength];
+            byte[] buffer = new byte[bufferLength];
             long streamLength = Source.Length;
             int recordLimit = 3;
             bool stopEncryption = false;
@@ -119,7 +119,7 @@ namespace DIP_Algorithm
             Bitmap map = Output.Output;
             byte[] key = GetBytes(Output.Key);
             fileOutput = new FileStream(this.destinationFolder+"\\"+Encryption.GetString(key), FileMode.OpenOrCreate);
-            byte[] buffer = new byte[BufferLength];
+            byte[] buffer = new byte[bufferLength];
             bool stopDecrypt = false;
             for (int y = 0; y < map.Height && stopDecrypt == false ; y++) 
                 for (int x = 0; x < map.Width && stopDecrypt == false; x++)
@@ -151,7 +151,7 @@ namespace DIP_Algorithm
                                 alpha -= maxIndicator;
                             }
                         }
-                    if (recordLength != BufferLength)
+                    if (recordLength != bufferLength)
                         stopDecrypt = true;
                     fileOutput.Write(buffer, 0, recordLength);
                 }
@@ -161,13 +161,13 @@ namespace DIP_Algorithm
 
         public override byte[] generateKey()
         {
-            byte[] result = new byte[DEFAUL_KEY_LENGTH];
+            byte[] result = new byte[bufferLength];
             Random rn = new Random();
-            for (int i = 0; i < BufferLength; i++)
+            for (int i = 0; i < bufferLength; i++)
             {
                 int rand = -1;
                 while (!char.IsLetterOrDigit((char)rand)) {
-                    rand = rn.Next(0, byte.MaxValue);
+                    rand = rn.Next((byte)'0', (byte)'Z');
                 };
                 result[i] = (byte) rand ;
             }

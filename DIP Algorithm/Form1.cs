@@ -91,7 +91,7 @@ namespace DIP_Algorithm
             pictureBox1.Image = currentEncryption.Output.Output;
             output = currentEncryption.Output;
             if (currentOperation == OPERATION_ENCRYPTION)
-                output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0, 8) + ".bmp");
+                output.Output.Save(destinationFileList.Text + "\\" + output.Key.Substring(0, (int)Math.Min(output.Key.Length,8)) + ".bmp");
             keyTextBox.Text = output.Key;
             progressBar1.Value = 100;
             timer.Stop();
@@ -232,10 +232,6 @@ namespace DIP_Algorithm
                     else
                         key = Encryption.GetBytes(keyTextBox.Text);
                     currentEncryption = new SHA256_Blowfish(key, stream);
-                    this.preEncryption = normalPreEncryption;
-                    this.duringEncryption = normalDuringEncryption;
-                    this.postEncrtypion = normalPostEncryption;
-                    ok = true;
                 }
                 else
                     MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
@@ -244,8 +240,11 @@ namespace DIP_Algorithm
             {
                 hexStringFlag.Checked = true;
                 currentEncryption = new SHA256_Blowfish(stream);
-                EncryptAndDecryptFunction(true);
+                ok = true;
             }
+            this.preEncryption = normalPreEncryption;
+            this.duringEncryption = normalDuringEncryption;
+            this.postEncrtypion = normalPostEncryption;
             return ok;
         }
 

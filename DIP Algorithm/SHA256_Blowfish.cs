@@ -66,7 +66,8 @@ namespace DIP_Algorithm
             if (Output.Output == null)
                 throw new Exception("No Bitmap to decrypt");
             retrieveDataFromDataRow();
-            Stream destination = new FileStream(destinationFolder + "\\test", FileMode.OpenOrCreate);
+            string filename = generateFileName(destinationFolder);
+            Stream destination = new FileStream(filename, FileMode.OpenOrCreate);
             byte[] buffer = new byte[PIXEL_DATA_SIZE];
             byte[] encryptedData = new byte[encryptedLength];
             long count = 0;
@@ -90,6 +91,18 @@ namespace DIP_Algorithm
             destination.Write(encryptedData, 0, Convert.ToInt32(orignalLength));
             percentage = 1;
             destination.Close();
+        }
+
+        private string generateFileName(string destinationFolder)
+        {
+            string defaultFileName = destinationFolder + "\\blowfishOutput" ;
+            string str = defaultFileName;
+            int counter = 1;
+            while (File.Exists(str))
+            {
+                str = defaultFileName + counter++;
+            }
+           return str;
         }
 
         public override void applyEncryption()
