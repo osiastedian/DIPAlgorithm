@@ -132,7 +132,13 @@ namespace DIP_Algorithm
             int size = (int)Math.Sqrt(source.Length / 4) + 1;
             dataBitmap = new Bitmap(size, size);
             this.random = new Random();
-            
+            // BLOCK ADDED to predefine KeyBitmap Reason: Sometime smaller files will make key bitmap more easy to decrypt since it only occupies less pixels.
+            { 
+                byte i = 0;
+                do {
+                    addDataToKeyBitmap(i++, ref keyBitmap, ref encryptionKeyMap);   // PRESET a KeyBitmap
+                } while (i != 0);
+            }
             if (source!=null)
             {
                 byte[] buffer = new byte[4];
@@ -141,7 +147,8 @@ namespace DIP_Algorithm
                     int limit = Math.Min((int)(source.Length - source.Position), 4);
                     source.Read(buffer, 0, buffer.Length);
                     for(int i=0;i< limit; i++) { 
-                        buffer[i] = generatePosition(buffer[i]);
+                        buffer[i] = getPositionByte(buffer[i]
+                            ,ref keyBitmap, ref encryptionKeyMap);
                         Console.WriteLine(buffer[i]);
                     }
                     dataBitmap.SetPixel(data_X++, data_Y, Color.FromArgb(buffer[0], buffer[1], buffer[2], buffer[3]));
@@ -160,7 +167,7 @@ namespace DIP_Algorithm
 
         }
         
-        private byte generatePosition(int data)
+        private byte getPositionByte(int data,ref Bitmap keyBitmap,ref Dictionary<int,MyPoint> encryptionKeyMap)
         {
             byte result = 0;
             MyPoint p = new MyPoint(-1,-1);
@@ -168,47 +175,33 @@ namespace DIP_Algorithm
             {
                 p = encryptionKeyMap[data];
             }
-            if(p.X == -1 || p.Y == -1)
+            else//if(p.X == -1 || p.Y == -1)
             {
-                bool operation = true;
-                do
-                {
-                    p.X = random.Next(KEY_WIDTH);
-                    p.Y = random.Next(KEY_HEIGHT);
-                    operation = encryptionKeyMap.ContainsValue(p);
-                } while (operation);
-
-                if (key_X >=keyBitmap.Width)
-                {
-                    key_X = 0;
-                    key_Y++;
-                }
-                encryptionKeyMap[data] = p;
-                keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, random.Next()%byte.MaxValue, random.Next() % byte.MaxValue, random.Next() % byte.MaxValue));
-            }
-            if (encryptionKeyMap.Count == 256)
-            {
-                if (encryptionKeyMap.Count == 256)
-                {
-                    int[,] test = new int[16, 17];
-
-                    foreach (MyPoint obj in encryptionKeyMap.Values)
-                    {
-                        test[obj.X,obj.Y]++;
-                    }
-                    Console.Write("");
-
-                }
-                Console.Write("");
-
+                p = addDataToKeyBitmap(data, ref keyBitmap, ref encryptionKeyMap);
             }
             result = (byte)(p.X * 16 + p.Y);
-            decryptionPointTemp = new MyPoint(0, 0);
-            decryptionPointTemp.X = result / KEY_WIDTH;
-            decryptionPointTemp.Y = result % KEY_HEIGHT;
-            if (!decryptionPointTemp.Equals(p))
-                Console.WriteLine("EQ ERROR");
             return result;
+        }
+
+        private MyPoint addDataToKeyBitmap(int data,ref Bitmap keyBitmap, ref Dictionary<int, MyPoint> encryptionKeyMap)
+        {
+            MyPoint p = generatePoint(ref encryptionKeyMap);
+            encryptionKeyMap[data] = p;
+            keyBitmap.SetPixel(p.X, p.Y, Color.FromArgb(data, random.Next() % byte.MaxValue, random.Next() % byte.MaxValue, random.Next() % byte.MaxValue));
+            return p;
+        }
+
+        private MyPoint generatePoint(ref Dictionary<int, MyPoint> encryptionKeyMap )
+        {
+            MyPoint p = new MyPoint(-1, -1);
+            bool operation = true;
+            do
+            {
+                p.X = random.Next(KEY_WIDTH);
+                p.Y = random.Next(KEY_HEIGHT);
+                operation = encryptionKeyMap.ContainsValue(p);
+            } while (operation);
+            return p;
         }
 
         private void runChecker() {
