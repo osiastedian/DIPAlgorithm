@@ -87,7 +87,8 @@ namespace DIP_Algorithm
 
             }            
         }
-
+        // Byte array to write
+        // Offset
         private byte getDataFromKey(byte bytePosition)
         {
             int number = (int)bytePosition;
