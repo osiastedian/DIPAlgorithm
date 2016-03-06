@@ -232,6 +232,7 @@ namespace DIP_Algorithm
                     else
                         key = Encryption.GetBytes(keyTextBox.Text);
                     currentEncryption = new SHA256_Blowfish(key, stream);
+                    ok = true;
                 }
                 else
                     MessageBox.Show("Blowfish needs atleast 8 bytes/characters as key");
