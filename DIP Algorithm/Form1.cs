@@ -166,12 +166,20 @@ namespace DIP_Algorithm
         private void OsiasPostEncryption()
         {
             OSIASEncryption.EncryptionMeta output = ((OSIASEncryption)currentEncryption).Output;
-            pictureBox1.Image = output.Output;
+            pictureBox1.Image = (Bitmap)output.Output.Clone();
             progressBar1.Value = 100;                   
             timer.Stop();
             string destFolder = this.destinationFileList.Text;
-            output.Key.Save(destFolder + "\\Key.bmp");
-            output.Output.Save(destFolder + "\\Output.bmp");
+            string keyFileName = "Key";
+            string outputFileName = "Output";
+            int counter = 0;
+            while (File.Exists(destFolder + "\\" + keyFileName+(counter++) + ".bmp")) {}
+            output.Key.Save(destFolder + "\\"+ keyFileName + (counter) + ".bmp");
+            counter = 0;
+            while (File.Exists(destFolder + "\\" + outputFileName + (counter++) + ".bmp")) { }
+            output.Output.Save(destFolder + "\\"+ outputFileName + (counter) + ".bmp");
+            output.Output.Dispose();
+            output.Key.Dispose();
             MessageBox.Show("Finished " + currentOperation + "Time:" + timeToString(timerTicks));
             timerTicks = 0;
             currentOperation = null;

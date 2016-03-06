@@ -130,7 +130,7 @@ namespace DIP_Algorithm
                     }
                     if (source.Position >= source.Length)
                         break;
-                    Percentage = source.Position / source.Length;
+                    Percentage = (float)source.Position / (float)source.Length;
                 }
             }
             this.Output = new EncryptionMeta(dataBitmap, keyBitmap);
